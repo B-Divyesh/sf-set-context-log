@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Set Context Log instrument dial">
+  <rect width="512" height="512" rx="112" fill="#4d5638"/>
+  <rect x="48" y="48" width="416" height="416" rx="82" fill="#f4ebd8" stroke="#20241e" stroke-width="18"/>
+  <circle cx="184" cy="204" r="94" fill="#20241e" stroke="#ba8a3b" stroke-width="15"/>
+  <path d="M184 204 230 133" stroke="#f4ebd8" stroke-width="16" stroke-linecap="round"/>
+  <circle cx="184" cy="204" r="19" fill="#ba8a3b"/>
+  <rect x="303" y="118" width="94" height="76" rx="13" fill="#b63c28" stroke="#20241e" stroke-width="10"/>
+  <g fill="#303722" stroke="#20241e" stroke-width="8">
+    <rect x="291" y="236" width="106" height="61" rx="11"/>
+    <rect x="291" y="323" width="106" height="61" rx="11"/>
+    <rect x="110" y="323" width="106" height="61" rx="11"/>
+  </g>
+  <path d="M115 433h282" stroke="#20241e" stroke-width="12" stroke-linecap="round"/>
+</svg>
