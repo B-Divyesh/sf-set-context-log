@@ -1,0 +1,7 @@
+{
+  "asset": "panel-memory",
+  "date": "2026-08-27",
+  "generator": "/opt/fleet/lib/gen-image.sh",
+  "deployment": "factory-image",
+  "prompt": "Use case: stylized-concept. Asset type: offline PWA empty-state and landing illustration. Scene/backdrop: quiet warm parchment studio sweep with a faint gym-bench rubber edge. Subject: a compact fictional mid-century exercise logging instrument shown in top-down three-quarter view, featuring one mechanical weight dial, one rep counter, six unlabeled rectangular context keys, and a small prior-set paper card emerging from a brass slot. Style/medium: polished editorial product illustration with tactile realistic materials, not a UI screenshot. Composition/framing: horizontal 3:2 composition, complete object visible, generous calm negative space around silhouette. Lighting/mood: soft directional 1950s catalog studio light, restrained crisp shadows, dependable and focused. Color palette: warm cream enamel, army olive bakelite, charcoal ink, oxidized brass, one vermilion control, parchment. Materials/textures: powder-coated metal, bakelite, brushed brass, fibrous paper, subtle rubber. Constraints: no people, no hands, no bodies, no logos, no brands, no readable or pseudo-readable text, no watermark. Avoid: neon, gradients, futuristic screens, medical imagery, gym clutter, bodybuilding imagery, excessive knobs, warped geometry."
+}
