@@ -25,11 +25,9 @@ const serviceWorker = `const VERSION = ${JSON.stringify(version)};
 const SHELL_CACHE = 'scl-shell-' + VERSION;
 const RUNTIME_CACHE = 'scl-runtime-' + VERSION;
 const SHELL = ${JSON.stringify(shell)};
-let upgrading = false;
 
 self.addEventListener('install', (event) => {
   event.waitUntil((async () => {
-    upgrading = (await caches.keys()).some((key) => key.startsWith('scl-shell-'));
     const cache = await caches.open(SHELL_CACHE);
     await cache.addAll(SHELL);
     await self.skipWaiting();
@@ -39,6 +37,7 @@ self.addEventListener('install', (event) => {
 self.addEventListener('activate', (event) => {
   event.waitUntil((async () => {
     const keys = await caches.keys();
+    const upgrading = keys.some((key) => key.startsWith('scl-shell-') && key !== SHELL_CACHE);
     await Promise.all(keys.filter((key) => key.startsWith('scl-') && ![SHELL_CACHE, RUNTIME_CACHE].includes(key)).map((key) => caches.delete(key)));
     await self.clients.claim();
     if (upgrading) {

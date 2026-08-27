@@ -1,0 +1,30 @@
+{
+  "slug": "set-context-log",
+  "title": "Set Context Log",
+  "territory": "utilities",
+  "user": "A self-directed lifter who needs to record what changed a set—not just weight and reps—so the next workout has usable context.",
+  "evidence": [
+    {
+      "url": "https://news.ycombinator.com/item?id=43034329",
+      "date": "2025-02-13",
+      "quote_or_summary": "The self-hosted workout-tracker discussion drew 14 comments; a user explicitly called out the missing Apple Health import and another requested privacy-friendly wearable handling."
+    },
+    {
+      "url": "https://github.com/wger-project/wger/issues/2437",
+      "date": "2026-07-19",
+      "quote_or_summary": "Requester needs notes on individual sets such as ‘grip slipped,’ ‘paused reps,’ and ‘felt easy, increase next time’; session-level notes are insufficient."
+    }
+  ],
+  "recurrence": "Two independent fitness-tracker communities in 2025–26; the pain occurs every training session and destroys the decision context needed for progressive overload.",
+  "current_workaround": "Put a cryptic note in a phone app or general notes app, or remember it until the next session.",
+  "incumbents_and_gap": "Wger, Hevy, and Strong store structured sets, but the cited Wger request shows set-level qualitative context is still an afterthought; generic notes do not surface it when repeating the lift.",
+  "smallest_useful_product": "Offline PWA with a fast set row (weight, reps, RPE, one-tap caveat), a next-session recall card, and CSV/JSON export. Non-goals: workout programming marketplace, social feed, wearable sync, nutrition logging.",
+  "success_measure": "In a 14-day pilot, at least 60% of logged working sets include a context marker and 70% of repeat exercises open the prior-set recall card.",
+  "artifact_class": "pwa-offline",
+  "monetization": "one-time — personal data stays on device and the utility has no recurring infrastructure need.",
+  "constraints": "Store health/fitness data locally by default; make exports portable; no medical claims; accommodate kg/lb per entry rather than silently converting history.",
+  "est_build_effort": "S",
+  "why_distinct": "It is a decision-memory layer for lifting, not another exercise catalog or AI workout generator.",
+  "confidence": 4,
+  "state": "RESEARCHED"
+}

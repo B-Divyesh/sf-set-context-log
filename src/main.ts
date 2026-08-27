@@ -143,7 +143,7 @@ function visibleHistory(): SetEntry[] {
 
 function renderHistory(): void {
   const visible = visibleHistory();
-  markerRateElement.textContent = entries.length ? `${markerRate(entries)}% with context` : '—% with context';
+  markerRateElement.textContent = entries.length && licenseState === 'unlocked' ? `${markerRate(entries)}% with context` : '—% with context';
   historyEmpty.hidden = entries.length > 0;
   archiveGate.hidden = licenseState === 'unlocked' || entries.length === 0;
   historyTools.hidden = licenseState !== 'unlocked' || entries.length === 0;
@@ -208,7 +208,7 @@ form.addEventListener('submit', async (event) => {
   const rpeValue = rpeInput.value === '' ? null : Number(rpeInput.value);
   const draft = {
     exercise: exerciseInput.value,
-    weight: Number(weightInput.value),
+    weight: weightInput.value === '' ? Number.NaN : Number(weightInput.value),
     reps: Number(repsInput.value),
     rpe: rpeValue,
   };

@@ -308,7 +308,6 @@ input:not([type="checkbox"]), select {
   border-radius: 3px;
 }
 input::placeholder { color: #747365; opacity: 1; }
-input:invalid:not(:placeholder-shown) { border-color: var(--danger); }
 .exercise-field input { font-size: 20px; font-weight: 700; }
 .field-hint { margin: 6px 0 0; color: var(--muted); font-size: 14px; }
 
@@ -408,7 +407,7 @@ input:invalid:not(:placeholder-shown) { border-color: var(--danger); }
 .subheading-row { align-items: center; padding-bottom: 10px; border-bottom: 2px solid var(--ink); }
 .subheading-row h3 { margin: 0; }
 .empty-note { display: flex; max-width: 520px; margin: 24px auto 8px; align-items: center; gap: 18px; }
-.empty-note p { margin: 0; color: var(--muted); }
+.empty-note p { margin: 0; color: #4b4a3e; }
 .empty-dial { width: 64px; height: 64px; flex: none; border: 10px double var(--olive); border-radius: 50%; box-shadow: inset 0 0 0 2px var(--ink); }
 .set-list { margin: 0; padding: 0; list-style: none; }
 .set-row { display: grid; min-height: 74px; padding: 14px 0; grid-template-columns: 32px minmax(150px, .9fr) .8fr 1.2fr 48px; align-items: center; gap: 12px; border-bottom: 1px solid rgb(32 36 30 / 32%); animation: settle 220ms ease-out; }

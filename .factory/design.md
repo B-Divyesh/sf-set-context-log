@@ -26,7 +26,7 @@ themes.
 | ink | `#20241E` | primary text and hard outlines |
 | olive | `#4D5638` | brand surface and secondary controls |
 | olive-dark | `#303722` | accessible olive text/background |
-| muted | `#686656` | secondary text (7:1+ on paper-high) |
+| muted | `#686656` | secondary text (AA on paper-high) |
 | vermilion | `#B63C28` | primary action and alerts |
 | vermilion-dark | `#7D2519` | hover/accessible small text |
 | brass | `#BA8A3B` | focus halo and selected markers |

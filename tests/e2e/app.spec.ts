@@ -5,16 +5,16 @@ test('logs, persists, recalls, and exports a set', async ({ page }) => {
   await page.goto('/');
   await expect(page).toHaveTitle(/Set Context Log/);
   await expect(page.locator('h1')).toHaveCount(1);
-  await page.getByLabel('Exercise').fill('Back squat');
-  await page.getByLabel('Weight').fill('102.5');
+  await page.getByLabel('Exercise', { exact: true }).fill('Back squat');
+  await page.getByLabel('Weight', { exact: true }).fill('102.5');
   await page.getByLabel('Reps').fill('5');
   await page.getByLabel('RPE (optional)').fill('8.5');
-  await page.getByText('Form', { exact: true }).click();
+  await page.locator('label:has(input[name="marker"][value="Form"]) span').click();
   await page.getByLabel('One useful detail (optional)').fill('Left knee steady');
   await page.getByRole('button', { name: 'Log this set' }).click();
   await expect(page.getByText('102.5 kg × 5 · RPE 8.5')).toBeVisible();
   await page.reload();
-  await expect(page.getByText('Left knee steady')).toBeVisible();
+  await expect(page.locator('#session-list').getByText('Left knee steady')).toBeVisible();
 
   const downloadPromise = page.waitForEvent('download');
   await page.getByRole('button', { name: 'Export JSON' }).click();
@@ -34,9 +34,9 @@ test('imports a prior session and opens recall for that exercise', async ({ page
     }],
   };
   await page.locator('#import-json').setInputFiles({ name: 'backup.json', mimeType: 'application/json', buffer: Buffer.from(JSON.stringify(backup)) });
-  await page.getByLabel('Exercise').fill('Bench press');
+  await page.getByLabel('Exercise', { exact: true }).fill('Bench press');
   await expect(page.getByText(/Last time: Bench press/)).toBeVisible();
-  await expect(page.getByText('Long first pause')).toBeVisible();
+  await expect(page.locator('#recall-card').getByText('Long first pause')).toBeVisible();
   await expect(page.getByLabel('Weight unit')).toHaveValue('lb');
 });
 
