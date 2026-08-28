@@ -34,4 +34,22 @@ describe('claim registry', () => {
       .join('\n');
     expect(shippedCopy).not.toMatch(/\b(?:leverage|seamless|effortless|robust|powerful|intuitive|reimagine|supercharge|unlock|delightful|journey|ecosystem|AI-powered)\b/i);
   });
+
+  it('removes unavailable billing and unsupported setup claims', () => {
+    const productFiles = ['index.html', 'README.md', 'public/privacy/index.html', 'public/terms/index.html', 'src/main.ts']
+      .map((path) => readFileSync(resolve(path), 'utf8'))
+      .join('\n');
+    expect(productFiles).not.toMatch(/\$9|checkout|merchant of record|license token|Node\.js 20|Playwright suite is pinned|payment-provider credential/i);
+    expect(productFiles).not.toMatch(/openai\.azure\.com|sbk_[A-Za-z0-9_-]+|VITE_BILLING_API_BASE/i);
+  });
+
+  it('uses result-naming controls and actionable recovery messages', () => {
+    const interfaceCopy = `${readFileSync(resolve('index.html'), 'utf8')}\n${readFileSync(resolve('src/main.ts'), 'utf8')}`;
+    for (const label of ['Change settings', 'Install app', 'Keep set', 'Reload app']) expect(interfaceCopy).toContain(label);
+    expect(interfaceCopy).not.toContain('That action could not be completed.');
+    expect(interfaceCopy).not.toContain('That backup could not be imported.');
+    expect(interfaceCopy).not.toContain('Offline setup was unavailable.');
+    expect(interfaceCopy).toContain('because browser storage is unavailable');
+    expect(interfaceCopy).toContain('reload while online');
+  });
 });

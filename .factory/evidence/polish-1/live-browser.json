@@ -1,0 +1,67 @@
+{
+  "routes": {
+    "/": {
+      "status": 200,
+      "title": "Set Context Log — log what changed each set",
+      "h1": 1,
+      "main": 1,
+      "canonical": "https://set-context-log.sociobot.in/",
+      "overflow": 0,
+      "errors": [],
+      "axe": []
+    },
+    "/demo": {
+      "status": 200,
+      "title": "Demo — Set Context Log",
+      "h1": 1,
+      "main": 1,
+      "canonical": "https://set-context-log.sociobot.in/demo",
+      "overflow": 0,
+      "errors": [],
+      "axe": []
+    },
+    "/privacy/": {
+      "status": 200,
+      "title": "Privacy — Set Context Log",
+      "h1": 1,
+      "main": 1,
+      "canonical": "https://set-context-log.sociobot.in/privacy/",
+      "overflow": 0,
+      "errors": [],
+      "axe": []
+    },
+    "/terms/": {
+      "status": 200,
+      "title": "Terms — Set Context Log",
+      "h1": 1,
+      "main": 1,
+      "canonical": "https://set-context-log.sociobot.in/terms/",
+      "overflow": 0,
+      "errors": [],
+      "axe": []
+    },
+    "/not-a-real-route-polish-1": {
+      "status": 404,
+      "title": "Page not found — Set Context Log",
+      "h1": 1,
+      "main": 1,
+      "canonical": "https://set-context-log.sociobot.in/404/",
+      "overflow": 0,
+      "errors": [],
+      "axe": []
+    }
+  },
+  "flow": {
+    "demoIsolation": true,
+    "seededRows": 6,
+    "reset": true,
+    "startForReal": true,
+    "origins": [
+      "https://set-context-log.sociobot.in"
+    ]
+  },
+  "offline": {
+    "reload": true,
+    "save": true
+  }
+}

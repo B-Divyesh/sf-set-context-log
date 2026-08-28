@@ -1,0 +1,441 @@
+
+added 59 packages, and audited 60 packages in 2s
+
+15 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+> set-context-log@1.0.0 test
+> vitest run
+
+
+ RUN  v3.2.7 /tmp/set-context-log-clean-rPwNOr
+
+ ✓ tests/deployment-config.test.ts (1 test) 6ms
+ ✓ tests/claims-manifest.test.ts (3 tests) 17ms
+ ✓ tests/domain.test.ts (6 tests) 38ms
+
+ Test Files  3 passed (3)
+      Tests  10 passed (10)
+   Start at  12:05:50
+   Duration  1.10s (transform 317ms, setup 0ms, collect 392ms, tests 60ms, environment 1ms, prepare 945ms)
+
+
+> set-context-log@1.0.0 build
+> tsc --noEmit && vite build && node scripts/generate-routes.mjs && node scripts/generate-sw.mjs && node scripts/verify-deployment-config.mjs
+
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 6 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                 12.01 kB │ gzip: 3.65 kB
+dist/assets/style-Bo7f6PKe.css  18.63 kB │ gzip: 4.85 kB
+dist/assets/index-hqLWyjvG.js   18.15 kB │ gzip: 6.59 kB │ map: 51.67 kB
+✓ built in 269ms
+Generated demo/index.html with route-specific metadata.
+Generated sw.js (87d6230fd65a) with 21 precached files.
+Verified Azure Static Web Apps cache, manifest, and response-policy configuration.
+RUN npm run test:claims -- --grep @claim:demo-isolation
+
+> set-context-log@1.0.0 test:claims
+> playwright test tests/e2e/claims.spec.ts --project=chromium-desktop --grep @claim:demo-isolation
+
+[2m[WebServer] [22m(node:7666) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:7726) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:7745) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:7745) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium-desktop] › tests/e2e/claims.spec.ts:31:1 › @claim:demo-isolation seeds, resets, and leaves real records untouched (3.6s)
+
+  1 passed (8.2s)
+RUN npm run test:claims -- --grep @claim:set-fields
+
+> set-context-log@1.0.0 test:claims
+> playwright test tests/e2e/claims.spec.ts --project=chromium-desktop --grep @claim:set-fields
+
+[2m[WebServer] [22m(node:7868) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:7929) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:7963) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:7963) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium-desktop] › tests/e2e/claims.spec.ts:51:1 › @claim:set-fields records all set fields and six markers (2.5s)
+
+  1 passed (7.9s)
+RUN npm run test:claims -- --grep @claim:previous-session-recall
+
+> set-context-log@1.0.0 test:claims
+> playwright test tests/e2e/claims.spec.ts --project=chromium-desktop --grep @claim:previous-session-recall
+
+[2m[WebServer] [22m(node:8079) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:8140) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:8158) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:8158) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium-desktop] › tests/e2e/claims.spec.ts:60:1 › @claim:previous-session-recall shows numbers, markers, and note before entry (991ms)
+
+  1 passed (6.4s)
+RUN npm run test:claims -- --grep @claim:local-storage
+
+> set-context-log@1.0.0 test:claims
+> playwright test tests/e2e/claims.spec.ts --project=chromium-desktop --grep @claim:local-storage
+
+[2m[WebServer] [22m(node:8291) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:8352) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:8370) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:8370) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium-desktop] › tests/e2e/claims.spec.ts:70:1 › @claim:local-storage persists locally and erases through settings (3.8s)
+
+  1 passed (8.1s)
+RUN npm run test:claims -- --grep @claim:json-export
+
+> set-context-log@1.0.0 test:claims
+> playwright test tests/e2e/claims.spec.ts --project=chromium-desktop --grep @claim:json-export
+
+[2m[WebServer] [22m(node:8498) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:8558) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:8576) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:8576) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium-desktop] › tests/e2e/claims.spec.ts:94:1 › @claim:json-export downloads the complete seeded backup (822ms)
+
+  1 passed (5.1s)
+RUN npm run test:claims -- --grep @claim:csv-export
+
+> set-context-log@1.0.0 test:claims
+> playwright test tests/e2e/claims.spec.ts --project=chromium-desktop --grep @claim:csv-export
+
+[2m[WebServer] [22m(node:8692) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:8772) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:8790) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:8790) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium-desktop] › tests/e2e/claims.spec.ts:102:1 › @claim:csv-export includes every row and escapes set context (1.9s)
+
+  1 passed (6.2s)
+RUN npm run test:claims -- --grep @claim:json-import-merge
+
+> set-context-log@1.0.0 test:claims
+> playwright test tests/e2e/claims.spec.ts --project=chromium-desktop --grep @claim:json-import-merge
+
+[2m[WebServer] [22m(node:8907) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:8967) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:8985) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:8985) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium-desktop] › tests/e2e/claims.spec.ts:113:1 › @claim:json-import-merge keeps a duplicate and adds a new ID (988ms)
+
+  1 passed (5.3s)
+RUN npm run test:claims -- --grep @claim:unit-preservation
+
+> set-context-log@1.0.0 test:claims
+> playwright test tests/e2e/claims.spec.ts --project=chromium-desktop --grep @claim:unit-preservation
+
+[2m[WebServer] [22m(node:9119) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:9179) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:9197) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:9197) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium-desktop] › tests/e2e/claims.spec.ts:126:1 › @claim:unit-preservation keeps saved units when the default changes (4.1s)
+
+  1 passed (8.3s)
+RUN npm run test:claims -- --grep @claim:session-history
+
+> set-context-log@1.0.0 test:claims
+> playwright test tests/e2e/claims.spec.ts --project=chromium-desktop --grep @claim:session-history
+
+[2m[WebServer] [22m(node:9310) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:9371) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:9389) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:9389) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium-desktop] › tests/e2e/claims.spec.ts:137:1 › @claim:session-history groups all seeded sets into sessions (727ms)
+
+  1 passed (5.0s)
+RUN npm run test:claims -- --grep @claim:same-day-sessions
+
+> set-context-log@1.0.0 test:claims
+> playwright test tests/e2e/claims.spec.ts --project=chromium-desktop --grep @claim:same-day-sessions
+
+[2m[WebServer] [22m(node:9506) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:9566) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:9584) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:9584) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium-desktop] › tests/e2e/claims.spec.ts:144:1 › @claim:same-day-sessions recalls a finished session on the same date (2.2s)
+
+  1 passed (6.6s)
+RUN npm run test:claims -- --grep @claim:offline-reload
+
+> set-context-log@1.0.0 test:claims
+> playwright test tests/e2e/claims.spec.ts --project=chromium-desktop --grep @claim:offline-reload
+
+[2m[WebServer] [22m(node:9717) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:9778) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:9796) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:9796) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium-desktop] › tests/e2e/claims.spec.ts:154:1 › @claim:offline-reload keeps the demo usable without a network (1.8s)
+
+  1 passed (6.1s)
+RUN npm run test:claims -- --grep @claim:anonymous-runtime
+
+> set-context-log@1.0.0 test:claims
+> playwright test tests/e2e/claims.spec.ts --project=chromium-desktop --grep @claim:anonymous-runtime
+
+[2m[WebServer] [22m(node:9914) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:9975) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:9993) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:9993) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium-desktop] › tests/e2e/claims.spec.ts:167:1 › @claim:anonymous-runtime loads no account or third-party runtime (860ms)
+
+  1 passed (5.2s)
+RUN npm run test:claims -- --grep @claim:free-use
+
+> set-context-log@1.0.0 test:claims
+> playwright test tests/e2e/claims.spec.ts --project=chromium-desktop --grep @claim:free-use
+
+[2m[WebServer] [22m(node:10105) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:10165) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:10183) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:10183) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium-desktop] › tests/e2e/claims.spec.ts:179:1 › @claim:free-use exposes the complete product without purchase UI (977ms)
+
+  1 passed (5.3s)
+RUN npm run test:claims -- --grep @claim:build-output
+
+> set-context-log@1.0.0 test:claims
+> playwright test tests/e2e/claims.spec.ts --project=chromium-desktop --grep @claim:build-output
+
+[2m[WebServer] [22m(node:10325) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:10386) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:10404) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:10404) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium-desktop] › tests/e2e/claims.spec.ts:191:1 › @claim:build-output emits the app, demo document, and versioned worker (11ms)
+
+  1 passed (4.2s)
+RUN npm run test:claims -- --grep @claim:deployment-policy
+
+> set-context-log@1.0.0 test:claims
+> playwright test tests/e2e/claims.spec.ts --project=chromium-desktop --grep @claim:deployment-policy
+
+[2m[WebServer] [22m(node:10462) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:10522) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:10540) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:10540) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium-desktop] › tests/e2e/claims.spec.ts:197:1 › @claim:deployment-policy applies static headers and a real 404 (339ms)
+
+  1 passed (4.7s)
+RUN npm run test:claims -- --grep @claim:site-routes
+
+> set-context-log@1.0.0 test:claims
+> playwright test tests/e2e/claims.spec.ts --project=chromium-desktop --grep @claim:site-routes
+
+[2m[WebServer] [22m(node:10675) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:10735) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:10754) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:10754) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium-desktop] › tests/e2e/claims.spec.ts:209:1 › @claim:site-routes gives each document complete structure and metadata (1.6s)
+
+  1 passed (5.9s)
+RUN npm run test:claims -- --grep @claim:art-provenance
+
+> set-context-log@1.0.0 test:claims
+> playwright test tests/e2e/claims.spec.ts --project=chromium-desktop --grep @claim:art-provenance
+
+[2m[WebServer] [22m(node:10869) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:10932) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:10950) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:10950) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium-desktop] › tests/e2e/claims.spec.ts:233:1 › @claim:art-provenance verifies the original and derived image records (14ms)
+
+  1 passed (4.2s)
+
+> set-context-log@1.0.0 test:e2e
+> playwright test
+
+[2m[WebServer] [22m(node:11008) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:11068) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 50 tests using 2 workers
+
+(node:11087) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:11086) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:11087) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:11086) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   2 [chromium-desktop] › tests/e2e/app.spec.ts:4:1 › logs, persists, recalls, and exports a set (3.8s)
+  ✓   3 [chromium-desktop] › tests/e2e/app.spec.ts:25:1 › supports keyboard marker selection and set logging (2.3s)
+  ✓   1 [chromium-desktop] › tests/e2e/claims.spec.ts:31:1 › @claim:demo-isolation seeds, resets, and leaves real records untouched (6.5s)
+  ✓   4 [chromium-desktop] › tests/e2e/app.spec.ts:40:1 › imports a prior session and opens recall for that exercise (1.8s)
+  ✓   5 [chromium-desktop] › tests/e2e/claims.spec.ts:51:1 › @claim:set-fields records all set fields and six markers (4.1s)
+  ✓   7 [chromium-desktop] › tests/e2e/claims.spec.ts:60:1 › @claim:previous-session-recall shows numbers, markers, and note before entry (1.3s)
+  ✓   6 [chromium-desktop] › tests/e2e/app.spec.ts:58:1 › has no serious accessibility violations at mobile width (5.3s)
+  ✓   9 [chromium-desktop] › tests/e2e/app.spec.ts:65:1 › reopens offline after the service worker is ready (2.3s)
+  ✓  10 [chromium-desktop] › tests/e2e/app.spec.ts:75:1 › shows the in-app update message from the service worker (1.5s)
+  ✓   8 [chromium-desktop] › tests/e2e/claims.spec.ts:70:1 › @claim:local-storage persists locally and erases through settings (5.7s)
+  ✓  11 [chromium-desktop] › tests/e2e/app.spec.ts:85:1 › keeps the 390px layout within the viewport and exposes the primary action (1.2s)
+  ✓  12 [chromium-desktop] › tests/e2e/claims.spec.ts:94:1 › @claim:json-export downloads the complete seeded backup (1.8s)
+  ✓  13 [chromium-desktop] › tests/e2e/app.spec.ts:92:1 › moves focus into settings and returns it when closed (1.6s)
+(node:11412) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  14 [chromium-desktop] › tests/e2e/claims.spec.ts:102:1 › @claim:csv-export includes every row and escapes set context (2.6s)
+  ✓  15 [chromium-desktop] › tests/e2e/claims.spec.ts:113:1 › @claim:json-import-merge keeps a duplicate and adds a new ID (1.2s)
+(node:11412) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  16 [chromium-desktop] › tests/e2e/claims.spec.ts:126:1 › @claim:unit-preservation keeps saved units when the default changes (2.5s)
+  ✓  18 [chromium-desktop] › tests/e2e/claims.spec.ts:137:1 › @claim:session-history groups all seeded sets into sessions (1.5s)
+  ✓  17 [chromium-mobile] › tests/e2e/app.spec.ts:4:1 › logs, persists, recalls, and exports a set (3.4s)
+  ✓  20 [chromium-mobile] › tests/e2e/app.spec.ts:25:1 › supports keyboard marker selection and set logging (1.8s)
+  ✓  19 [chromium-desktop] › tests/e2e/claims.spec.ts:144:1 › @claim:same-day-sessions recalls a finished session on the same date (4.2s)
+  ✓  21 [chromium-mobile] › tests/e2e/app.spec.ts:40:1 › imports a prior session and opens recall for that exercise (1.5s)
+  ✓  22 [chromium-desktop] › tests/e2e/claims.spec.ts:154:1 › @claim:offline-reload keeps the demo usable without a network (3.2s)
+  ✓  24 [chromium-desktop] › tests/e2e/claims.spec.ts:167:1 › @claim:anonymous-runtime loads no account or third-party runtime (1.5s)
+  ✓  23 [chromium-mobile] › tests/e2e/app.spec.ts:58:1 › has no serious accessibility violations at mobile width (5.5s)
+  ✓  25 [chromium-desktop] › tests/e2e/claims.spec.ts:179:1 › @claim:free-use exposes the complete product without purchase UI (1.3s)
+  ✓  27 [chromium-desktop] › tests/e2e/claims.spec.ts:191:1 › @claim:build-output emits the app, demo document, and versioned worker (42ms)
+  ✓  28 [chromium-desktop] › tests/e2e/claims.spec.ts:197:1 › @claim:deployment-policy applies static headers and a real 404 (409ms)
+  ✓  26 [chromium-mobile] › tests/e2e/app.spec.ts:65:1 › reopens offline after the service worker is ready (1.6s)
+  ✓  30 [chromium-mobile] › tests/e2e/app.spec.ts:75:1 › shows the in-app update message from the service worker (1.2s)
+  ✓  31 [chromium-mobile] › tests/e2e/app.spec.ts:85:1 › keeps the 390px layout within the viewport and exposes the primary action (730ms)
+  ✓  29 [chromium-desktop] › tests/e2e/claims.spec.ts:209:1 › @claim:site-routes gives each document complete structure and metadata (3.2s)
+  ✓  33 [chromium-desktop] › tests/e2e/claims.spec.ts:233:1 › @claim:art-provenance verifies the original and derived image records (33ms)
+  ✓  32 [chromium-mobile] › tests/e2e/app.spec.ts:92:1 › moves focus into settings and returns it when closed (916ms)
+(node:11686) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:11686) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  34 [chromium-mobile] › tests/e2e/claims.spec.ts:31:1 › @claim:demo-isolation seeds, resets, and leaves real records untouched (2.7s)
+  ✓  35 [chromium-mobile] › tests/e2e/claims.spec.ts:51:1 › @claim:set-fields records all set fields and six markers (2.1s)
+  ✓  36 [chromium-mobile] › tests/e2e/claims.spec.ts:60:1 › @claim:previous-session-recall shows numbers, markers, and note before entry (688ms)
+  ✓  37 [chromium-mobile] › tests/e2e/claims.spec.ts:70:1 › @claim:local-storage persists locally and erases through settings (3.5s)
+  ✓  38 [chromium-mobile] › tests/e2e/claims.spec.ts:94:1 › @claim:json-export downloads the complete seeded backup (699ms)
+  ✓  39 [chromium-mobile] › tests/e2e/claims.spec.ts:102:1 › @claim:csv-export includes every row and escapes set context (1.7s)
+  ✓  40 [chromium-mobile] › tests/e2e/claims.spec.ts:113:1 › @claim:json-import-merge keeps a duplicate and adds a new ID (558ms)
+  ✓  41 [chromium-mobile] › tests/e2e/claims.spec.ts:126:1 › @claim:unit-preservation keeps saved units when the default changes (1.6s)
+  ✓  42 [chromium-mobile] › tests/e2e/claims.spec.ts:137:1 › @claim:session-history groups all seeded sets into sessions (454ms)
+  ✓  43 [chromium-mobile] › tests/e2e/claims.spec.ts:144:1 › @claim:same-day-sessions recalls a finished session on the same date (4.7s)
+  ✓  44 [chromium-mobile] › tests/e2e/claims.spec.ts:154:1 › @claim:offline-reload keeps the demo usable without a network (2.8s)
+  ✓  45 [chromium-mobile] › tests/e2e/claims.spec.ts:167:1 › @claim:anonymous-runtime loads no account or third-party runtime (691ms)
+  ✓  46 [chromium-mobile] › tests/e2e/claims.spec.ts:179:1 › @claim:free-use exposes the complete product without purchase UI (611ms)
+  ✓  47 [chromium-mobile] › tests/e2e/claims.spec.ts:191:1 › @claim:build-output emits the app, demo document, and versioned worker (3ms)
+  ✓  48 [chromium-mobile] › tests/e2e/claims.spec.ts:197:1 › @claim:deployment-policy applies static headers and a real 404 (175ms)
+  ✓  49 [chromium-mobile] › tests/e2e/claims.spec.ts:209:1 › @claim:site-routes gives each document complete structure and metadata (1.2s)
+  ✓  50 [chromium-mobile] › tests/e2e/claims.spec.ts:233:1 › @claim:art-provenance verifies the original and derived image records (9ms)
+
+  50 passed (1.2m)

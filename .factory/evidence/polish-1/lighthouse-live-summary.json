@@ -1,0 +1,16 @@
+{
+  "url": "https://set-context-log.sociobot.in/",
+  "fetchTime": "2026-08-28T12:14:07.924Z",
+  "scores": {
+    "performance": 97,
+    "accessibility": 100,
+    "bestPractices": 100,
+    "seo": 100
+  },
+  "metrics": {
+    "FCP": "1.1 s",
+    "LCP": "1.2 s",
+    "TBT": "180 ms",
+    "CLS": "0.062"
+  }
+}

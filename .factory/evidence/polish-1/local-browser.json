@@ -1,0 +1,50 @@
+{
+  "home-mobile": {
+    "status": 200,
+    "title": "Set Context Log — log what changed each set",
+    "errors": [],
+    "axeViolations": [],
+    "h1": 1,
+    "overflow": 0
+  },
+  "demo-mobile": {
+    "status": 200,
+    "title": "Demo — Set Context Log",
+    "errors": [],
+    "axeViolations": [],
+    "h1": 1,
+    "overflow": 0
+  },
+  "home-desktop": {
+    "status": 200,
+    "title": "Set Context Log — log what changed each set",
+    "errors": [],
+    "axeViolations": [],
+    "h1": 1,
+    "overflow": 0
+  },
+  "demo-desktop": {
+    "status": 200,
+    "title": "Demo — Set Context Log",
+    "errors": [],
+    "axeViolations": [],
+    "h1": 1,
+    "overflow": 0
+  },
+  "privacy-mobile": {
+    "status": 200,
+    "title": "Privacy — Set Context Log",
+    "errors": [],
+    "axeViolations": [],
+    "h1": 1,
+    "overflow": 0
+  },
+  "not-found-mobile": {
+    "status": 404,
+    "title": "Page not found — Set Context Log",
+    "errors": [],
+    "axeViolations": [],
+    "h1": 1,
+    "overflow": 0
+  }
+}
