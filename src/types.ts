@@ -15,6 +15,8 @@ export interface SetEntry {
 
 export interface AppSettings {
   defaultUnit: WeightUnit;
+  activeSessionId?: string;
+  activeSessionDate?: string;
 }
 
 export interface ExportBundle {

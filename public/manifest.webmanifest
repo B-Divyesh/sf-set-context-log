@@ -3,7 +3,7 @@
   "name": "Set Context Log",
   "short_name": "Set Context",
   "description": "Record what changed each lifting set and recall it next session.",
-  "start_url": "/?source=pwa&v=1",
+  "start_url": "/?source=pwa&v=2",
   "scope": "/",
   "display": "standalone",
   "orientation": "any",

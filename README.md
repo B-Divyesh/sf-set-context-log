@@ -1,41 +1,44 @@
 # Set Context Log
 
-Set Context Log is a private, offline-first set recorder for self-directed
-lifters. It captures weight, reps, RPE, a one-tap context marker, and a short
-set-specific note. When the exercise comes up in a later session, the prior
-sets and their caveats appear before the next entry.
+Set Context Log records weight, reps, effort, and what changed for each lifting
+set. It is for self-directed lifters who want the last session’s context before
+their next set.
 
-The app is a decision-memory layer, not a workout program, exercise catalog,
-social feed, wearable client, or medical tool. The production site is
-<https://set-context-log.sociobot.in>.
+Try the isolated sample at
+<https://set-context-log.sociobot.in/?demo=1>. It opens with realistic sessions
+and never reads or changes the real log (`demo-isolation`).
 
-## Product behavior
+## What it does
 
-- Fast set entry with per-entry kg/lb (history is never silently converted)
-- `Clean`, `Grip`, `Pause`, `Tempo`, `Form`, and `Easy` context keys
-- Automatic prior-session recall for the selected exercise
-- Today view plus a local archive grouped by session date
-- IndexedDB storage with a localStorage fallback
-- Portable JSON backup/import and spreadsheet-ready CSV export
-- Installable PWA with a precached shell and tested offline reload
-- Optional $9 one-time license for full archive visibility, search, and the
-  context-rate readout; logging, recall, accessibility, and export stay free
+- Records kg or lb, reps, effort, six set-context markers, and a note
+  (`set-fields`).
+- Shows the previous session when you choose a saved exercise
+  (`previous-session-recall`).
+- Separates two sessions on the same day when you select **Finish session**
+  (`same-day-sessions`).
+- Groups the history by session (`session-history`).
+- Downloads every set as JSON or CSV (`json-export`, `csv-export`).
+- Imports new set IDs without replacing existing records (`json-import-merge`).
+- Keeps saved units unchanged when you change the default (`unit-preservation`).
+- Reloads the installed app offline after the first visit (`offline-reload`).
 
-No account, analytics, third-party runtime script, remote font, or cloud sync
-is used. Training data never leaves the device. A stored paid license is
-verified against the Sociobot billing API at most once per day.
+The app is free to use and needs no account. Anonymous use loads no analytics,
+remote fonts, third-party scripts, or cloud sync (`anonymous-runtime`). Your
+sets stay in browser storage, and the erase control removes them
+(`local-storage`).
 
-## Develop
+It records sets. It does not create workout plans or send records to a server
+(`anonymous-runtime`, `local-storage`).
 
-Requires Node.js 20 or newer.
+## Run locally
 
 ```sh
 npm install
 npm run dev
 ```
 
-The development server uses Vite. Service-worker registration is intentionally
-disabled in development to avoid stale local assets.
+Open the URL printed by Vite. The production demo route is `/?demo=1` or
+`/demo`; see [`.factory/demo.md`](.factory/demo.md).
 
 ## Test and build
 
@@ -43,41 +46,32 @@ disabled in development to avoid stale local assets.
 npm test
 npm run build
 npm run test:e2e
+npm run test:claims
 ```
 
-`npm run build` is the deployment command. It type-checks the application,
-builds with Vite, and generates the versioned service worker. Static output is
-written to `dist/`, with `dist/index.html` at its root. The Playwright suite is
-pinned to 1.58.2 and covers mobile logging, persistence, import/recall,
-accessibility, and an offline reload.
+The claim registry is [`.factory/claims.json`](.factory/claims.json). Each row
+contains the exact command for its tagged test.
 
-To exercise staging billing, set `VITE_BILLING_API_BASE` at build time:
+`npm run build` type-checks the source, builds the site, creates route files,
+and generates the service worker. It writes `dist/index.html` and `dist/sw.js`
+(`build-output`).
 
-```sh
-VITE_BILLING_API_BASE=https://pilot-api.sociobot.in/api/v1 npm run build
-```
+## Technical storage and deployment
 
-Production defaults to `https://api.sociobot.in/api/v1`. No product ID or
-payment-provider credential is stored in this repository.
+Real records use the `set-context-log` IndexedDB database. Demo records use
+`demo:set-context-log`. Each has a separate localStorage fallback.
 
-## Data and deployment
+Deploy the complete `dist/` directory to a static HTTPS host.
+`staticwebapp.config.json` gives versioned assets immutable caching. It
+revalidates HTML and `sw.js`. It also sets the manifest MIME type, CSP,
+permissions policy, and the designed 404 response (`deployment-policy`).
 
-The JSON format is identified by `set-context-log/v1`; imports merge by set ID
-and do not overwrite existing sets. Browser storage should not be treated as a
-backup, so users who value long-term records should export periodically.
+Privacy and Terms use real routes with shared navigation and route metadata
+(`site-routes`). The production site is
+<https://set-context-log.sociobot.in>.
 
-Deploy the complete `dist/` directory to any static host with HTTPS. The
-included `staticwebapp.config.json` supplies immutable caching only for
-content-versioned assets, short revalidation for HTML and `sw.js`, the correct
-web-manifest MIME type, and the app's CSP and permissions policy. Hosts that
-do not read Azure Static Web Apps configuration must apply equivalent response
-rules. The factory owns infrastructure, DNS, billing registration, and
-production deployment. Privacy and terms are available at `/privacy/` and
-`/terms/`.
-
-The visual system and image provenance are in
-[`.factory/design.md`](.factory/design.md). Build verification and known gaps
-are recorded in [`.factory/handoff.md`](.factory/handoff.md).
+The visual system and original image provenance are recorded in
+[`.factory/design.md`](.factory/design.md) (`art-provenance`).
 
 ## License
 

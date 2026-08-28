@@ -68,7 +68,13 @@ self.addEventListener('fetch', (event) => {
         if (response.ok && url.origin === self.location.origin) (await caches.open(RUNTIME_CACHE)).put(request, response.clone());
         return response;
       } catch {
-        return (await caches.match(request)) || (await caches.match('/index.html')) || (await caches.match('/offline.html'));
+        const path = url.pathname.endsWith('/') && url.pathname !== '/' ? url.pathname.slice(0, -1) : url.pathname;
+        const fallback = path === '/' ? '/index.html'
+          : path === '/demo' ? '/demo/index.html'
+            : path === '/privacy' ? '/privacy/index.html'
+              : path === '/terms' ? '/terms/index.html'
+                : '/404/index.html';
+        return (await caches.match(request)) || (await caches.match(fallback)) || (await caches.match('/offline.html'));
       }
     })());
     return;

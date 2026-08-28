@@ -1,0 +1,121 @@
+[
+  {
+    "id": "demo-isolation",
+    "claim": "The one-click demo starts with sample sessions and never reads or changes the real log.",
+    "where": "landing hero, demo banner, README, privacy",
+    "test": "npm run test:claims -- --grep @claim:demo-isolation",
+    "sandbox": "fresh browser context; create a real record, mutate and reset demo storage, then prove the real record is unchanged"
+  },
+  {
+    "id": "set-fields",
+    "claim": "A set records weight, unit, reps, effort, six set-context markers, and a note.",
+    "where": "set form, README",
+    "test": "npm run test:claims -- --grep @claim:set-fields",
+    "sandbox": "demo data; save all fields and inspect the downloaded JSON record"
+  },
+  {
+    "id": "previous-session-recall",
+    "claim": "Choosing a saved exercise shows its previous session before the next entry.",
+    "where": "hero art caption, how it works, README",
+    "test": "npm run test:claims -- --grep @claim:previous-session-recall",
+    "sandbox": "fresh demo; assert the earlier session numbers, markers, and note appear above the entry fields"
+  },
+  {
+    "id": "local-storage",
+    "claim": "Sets stay in browser storage and can be erased with the in-app control.",
+    "where": "landing, privacy, README",
+    "test": "npm run test:claims -- --grep @claim:local-storage",
+    "sandbox": "fresh demo; save and reload a record, observe request origins, erase it, and inspect the demo database"
+  },
+  {
+    "id": "json-export",
+    "claim": "JSON export downloads every set in a Set Context Log backup.",
+    "where": "data section, privacy, README",
+    "test": "npm run test:claims -- --grep @claim:json-export",
+    "sandbox": "fresh demo; download JSON and validate schema and one record per seeded set"
+  },
+  {
+    "id": "csv-export",
+    "claim": "CSV export downloads every set with units, markers, and correctly escaped notes.",
+    "where": "data section, privacy, README",
+    "test": "npm run test:claims -- --grep @claim:csv-export",
+    "sandbox": "fresh demo; add punctuation-heavy context, download CSV, and assert header, escaping, unit, markers, and row count"
+  },
+  {
+    "id": "json-import-merge",
+    "claim": "JSON import adds new set IDs without replacing existing records.",
+    "where": "data section, README",
+    "test": "npm run test:claims -- --grep @claim:json-import-merge",
+    "sandbox": "fresh real log; import a duplicate and a new ID, then inspect exported records"
+  },
+  {
+    "id": "unit-preservation",
+    "claim": "Changing the default unit does not convert saved sets.",
+    "where": "settings, README",
+    "test": "npm run test:claims -- --grep @claim:unit-preservation",
+    "sandbox": "fresh real log; save kg, change default to lb, and verify the exported saved unit"
+  },
+  {
+    "id": "session-history",
+    "claim": "History groups saved sets by session.",
+    "where": "history, README",
+    "test": "npm run test:claims -- --grep @claim:session-history",
+    "sandbox": "fresh demo; assert four session groups contain all six seeded sets"
+  },
+  {
+    "id": "same-day-sessions",
+    "claim": "Finishing a session starts a separate session, even on the same day.",
+    "where": "session control, README",
+    "test": "npm run test:claims -- --grep @claim:same-day-sessions",
+    "sandbox": "fresh real log; finish one same-day session and assert its set becomes previous-session context"
+  },
+  {
+    "id": "offline-reload",
+    "claim": "The app reloads and keeps demo records offline after the first visit.",
+    "where": "landing facts, privacy, README",
+    "test": "npm run test:claims -- --grep @claim:offline-reload",
+    "sandbox": "fresh demo; activate the service worker, go offline, reload, save, and reload again"
+  },
+  {
+    "id": "anonymous-runtime",
+    "claim": "Anonymous use has no account, analytics, cloud sync, remote fonts, third-party runtime scripts, or workout generation.",
+    "where": "landing facts, privacy, README",
+    "test": "npm run test:claims -- --grep @claim:anonymous-runtime",
+    "sandbox": "fresh demo with full request interception and loaded-resource inspection"
+  },
+  {
+    "id": "free-use",
+    "claim": "The complete product is free to use without a purchase or license.",
+    "where": "landing facts, terms, README",
+    "test": "npm run test:claims -- --grep @claim:free-use",
+    "sandbox": "fresh real log; assert entry, history, import, export, settings, and erase controls are available with no purchase UI"
+  },
+  {
+    "id": "build-output",
+    "claim": "The build type-checks and emits dist/index.html, the demo route, and a versioned service worker.",
+    "where": "README",
+    "test": "npm run test:claims -- --grep @claim:build-output",
+    "sandbox": "Playwright web server runs npm run build first; inspect the emitted files and service-worker version"
+  },
+  {
+    "id": "deployment-policy",
+    "claim": "Static deployment config sets cache, manifest MIME, security headers, and a designed 404 response.",
+    "where": "README",
+    "test": "npm run test:claims -- --grep @claim:deployment-policy",
+    "sandbox": "inspect staticwebapp.config.json and request an unknown route from the production-like preview"
+  },
+  {
+    "id": "site-routes",
+    "claim": "Home, Demo, Privacy, Terms, and 404 have real titles, metadata, navigation, and legal links.",
+    "where": "header, footer, README",
+    "test": "npm run test:claims -- --grep @claim:site-routes",
+    "sandbox": "crawl every local document route and assert status, title, canonical, one h1, main, header, footer, and links"
+  },
+  {
+    "id": "art-provenance",
+    "claim": "The hero and share images derive from the original generated product artwork.",
+    "where": "footer, README, design record",
+    "test": "npm run test:claims -- --grep @claim:art-provenance",
+    "sandbox": "verify source and optimized hashes, prompt sidecar, provenance text, and 1200 by 630 PNG dimensions"
+  }
+]

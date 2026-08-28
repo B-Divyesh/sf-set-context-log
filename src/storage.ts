@@ -1,11 +1,12 @@
 import type { AppSettings, ExportBundle, SetEntry, StorageResult } from './types';
 
-const DB_NAME = 'set-context-log';
+const REAL_DB_NAME = 'set-context-log';
+const DEMO_DB_NAME = 'demo:set-context-log';
 const DB_VERSION = 1;
 const SETS_STORE = 'sets';
 const SETTINGS_STORE = 'settings';
-const FALLBACK_SETS = 'scl_sets_v1';
-const FALLBACK_SETTINGS = 'scl_settings_v1';
+let fallbackSetsKey = 'scl_sets_v1';
+let fallbackSettingsKey = 'scl_settings_v1';
 
 let db: IDBDatabase | null = null;
 let fallback = false;
@@ -25,13 +26,16 @@ function transactionDone(transaction: IDBTransaction): Promise<void> {
   });
 }
 
-export async function openStorage(): Promise<StorageResult> {
+export async function openStorage(demo = false): Promise<StorageResult> {
+  const databaseName = demo ? DEMO_DB_NAME : REAL_DB_NAME;
+  fallbackSetsKey = demo ? 'demo:scl_sets_v1' : 'scl_sets_v1';
+  fallbackSettingsKey = demo ? 'demo:scl_settings_v1' : 'scl_settings_v1';
   if (!('indexedDB' in window)) {
     fallback = true;
     return { mode: 'localStorage', warning: 'Private database storage is unavailable. Using this browser’s simpler local storage instead.' };
   }
   try {
-    const request = indexedDB.open(DB_NAME, DB_VERSION);
+    const request = indexedDB.open(databaseName, DB_VERSION);
     request.onupgradeneeded = () => {
       const opened = request.result;
       if (!opened.objectStoreNames.contains(SETS_STORE)) opened.createObjectStore(SETS_STORE, { keyPath: 'id' });
@@ -47,11 +51,11 @@ export async function openStorage(): Promise<StorageResult> {
 }
 
 function localSets(): SetEntry[] {
-  try { return JSON.parse(localStorage.getItem(FALLBACK_SETS) || '[]') as SetEntry[]; } catch { return []; }
+  try { return JSON.parse(localStorage.getItem(fallbackSetsKey) || '[]') as SetEntry[]; } catch { return []; }
 }
 
 function saveLocalSets(sets: SetEntry[]): void {
-  localStorage.setItem(FALLBACK_SETS, JSON.stringify(sets));
+  localStorage.setItem(fallbackSetsKey, JSON.stringify(sets));
 }
 
 export async function getSets(): Promise<SetEntry[]> {
@@ -84,7 +88,7 @@ export async function deleteSet(id: string): Promise<void> {
 
 export async function getSettings(): Promise<AppSettings> {
   if (fallback || !db) {
-    try { return JSON.parse(localStorage.getItem(FALLBACK_SETTINGS) || '{"defaultUnit":"kg"}') as AppSettings; }
+    try { return JSON.parse(localStorage.getItem(fallbackSettingsKey) || '{"defaultUnit":"kg"}') as AppSettings; }
     catch { return { defaultUnit: 'kg' }; }
   }
   return (await requestResult(db.transaction(SETTINGS_STORE).objectStore(SETTINGS_STORE).get('app')) as AppSettings | undefined) ?? { defaultUnit: 'kg' };
@@ -92,7 +96,7 @@ export async function getSettings(): Promise<AppSettings> {
 
 export async function putSettings(settings: AppSettings): Promise<void> {
   if (fallback || !db) {
-    localStorage.setItem(FALLBACK_SETTINGS, JSON.stringify(settings));
+    localStorage.setItem(fallbackSettingsKey, JSON.stringify(settings));
     return;
   }
   const transaction = db.transaction(SETTINGS_STORE, 'readwrite');
@@ -117,8 +121,8 @@ export async function importBundle(bundle: ExportBundle): Promise<number> {
 
 export async function clearAll(): Promise<void> {
   if (fallback || !db) {
-    localStorage.removeItem(FALLBACK_SETS);
-    localStorage.removeItem(FALLBACK_SETTINGS);
+    localStorage.removeItem(fallbackSetsKey);
+    localStorage.removeItem(fallbackSettingsKey);
     return;
   }
   const transaction = db.transaction([SETS_STORE, SETTINGS_STORE], 'readwrite');
