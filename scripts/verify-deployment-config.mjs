@@ -30,5 +30,6 @@ required(html.includes(hero), 'HTML must reference the content-versioned hero as
 required(existsSync(resolve(dist, `.${hero}`)), 'content-versioned hero asset is missing');
 required(!existsSync(resolve(dist, 'assets/panel-memory.webp')), 'unversioned hero asset must not be deployed with immutable asset caching');
 required(readdirSync(resolve(dist, 'assets')).filter((file) => !file.endsWith('.map')).every((file) => /-[A-Za-z0-9_-]{8,}\./.test(file)), 'every immutable /assets file must have a content version in its name');
+required(!readFileSync(resolve(dist, 'sw.js'), 'utf8').includes('/staticwebapp.config.json'), 'host-only deployment configuration must not be precached');
 
 console.log('Verified Azure Static Web Apps cache, manifest, and response-policy configuration.');

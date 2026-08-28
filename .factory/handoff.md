@@ -16,6 +16,9 @@ flows.
 - Renamed the formerly unversioned hero to
   `panel-memory-c9dfb7b9.webp` (its SHA-256 prefix) before applying immutable
   caching. Vite's JS/CSS outputs already have content-versioned names.
+- Excludes the host-only deployment configuration from the service-worker
+  precache: Azure does not expose that file publicly, and a 404 during
+  `cache.addAll()` would otherwise prevent service-worker activation.
 - Maps `.webmanifest` to `application/manifest+json` through Azure Static Web
   Apps' `mimeTypes` configuration (route-header overrides do not replace Azure's
   inferred MIME type on the live service).
@@ -33,7 +36,8 @@ flows.
   `scripts/verify-deployment-config.mjs`, which verifies the emitted
   `dist/staticwebapp.config.json`, short document/service-worker cache policy,
   immutable asset policy, manifest MIME type, and that every immutable asset
-  is content-versioned (including the hero).
+  is content-versioned (including the hero); it also rejects a host-only
+  configuration file in the worker precache.
 - `npm run test:e2e`: pass, 12/12 Chromium tests across 1440×1000 desktop and
   Pixel 5 mobile. Coverage includes logging/persistence/export,
   import/recall, keyboard Space/Enter marker and submit behavior, axe serious/

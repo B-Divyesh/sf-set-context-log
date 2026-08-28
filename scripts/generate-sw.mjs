@@ -14,7 +14,7 @@ async function walk(directory) {
 }
 
 const paths = (await walk(root.pathname))
-  .filter((path) => !path.endsWith('.map') && !path.endsWith('sw.js'))
+  .filter((path) => !path.endsWith('.map') && !path.endsWith('sw.js') && !path.endsWith('staticwebapp.config.json'))
   .map((path) => `/${relative(root.pathname, path).split(sep).join('/')}`)
   .sort();
 const index = await readFile(new URL('../dist/index.html', import.meta.url));
