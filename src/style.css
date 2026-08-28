@@ -566,8 +566,10 @@ dialog::backdrop { background: rgb(18 21 15 / 72%); backdrop-filter: blur(2px); 
   .top-rail { padding-inline: 14px; }
   .brand { font-size: 15px; }
   .brand-mark { width: 30px; height: 30px; }
-  .connection-status { font-size: 0; }
-  .connection-status span { font-size: 16px; }
+  .rail-actions { gap: 8px; }
+  .connection-status { gap: 5px; font-size: 11px; letter-spacing: .04em; white-space: nowrap; }
+  .connection-status span { font-size: 14px; }
+  .rail-button { padding-inline: 9px; }
   .section-nav { justify-content: stretch; }
   .section-nav a { flex: 1; padding-inline: 4px; text-align: center; }
   .hero-shell { min-height: 0; padding: 44px 20px 56px; grid-template-columns: 1fr; gap: 36px; }

@@ -1,1 +1,1 @@
-Log what changed each lifting set, then review that context before the next session.
+Log lifting-set context, then review it before your next session.

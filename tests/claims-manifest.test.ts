@@ -25,7 +25,7 @@ describe('claim registry', () => {
     const description = readFileSync(resolve('.factory/catalog-description.txt'), 'utf8').trim();
     expect(description.length).toBeLessThanOrEqual(120);
     expect(description).toMatch(/^Log\b/);
-    expect(description.split(/\s+/)).toHaveLength(14);
+    expect(description.split(/\s+/).length).toBeLessThanOrEqual(22);
   });
 
   it('keeps banned marketing words out of shipped copy', () => {
@@ -33,6 +33,14 @@ describe('claim registry', () => {
       .map((path) => readFileSync(resolve(path), 'utf8'))
       .join('\n');
     expect(shippedCopy).not.toMatch(/\b(?:leverage|seamless|effortless|robust|powerful|intuitive|reimagine|supercharge|unlock|delightful|journey|ecosystem|AI-powered)\b/i);
+  });
+
+  it('uses last-session context as the one recall term', () => {
+    const recallCopy = ['index.html', 'README.md', 'src/main.ts', '.factory/claims.json', '.factory/demo.md', '.factory/design.md']
+      .map((path) => readFileSync(resolve(path), 'utf8'))
+      .join('\n');
+    expect(recallCopy).toContain('last-session context');
+    expect(recallCopy).not.toMatch(/previous-set context|previous session|last session(?:’s|')? context|review the last set/i);
   });
 
   it('removes unavailable billing and unsupported setup claims', () => {

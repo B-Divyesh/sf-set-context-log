@@ -14,11 +14,11 @@
     "sandbox": "demo data; save all fields and inspect the downloaded JSON record"
   },
   {
-    "id": "previous-session-recall",
-    "claim": "Choosing a saved exercise shows its previous session before the next entry.",
+    "id": "last-session-recall",
+    "claim": "Choosing a saved exercise shows last-session context before the next entry.",
     "where": "hero art caption, how it works, README",
-    "test": "npm run test:claims -- --grep @claim:previous-session-recall",
-    "sandbox": "fresh demo; assert the earlier session numbers, markers, and note appear above the entry fields"
+    "test": "npm run test:claims -- --grep @claim:last-session-recall",
+    "sandbox": "fresh demo; assert last-session numbers, markers, and note appear above the entry fields"
   },
   {
     "id": "local-storage",
@@ -67,7 +67,7 @@
     "claim": "Finishing a session starts a separate session, even on the same day.",
     "where": "session control, README",
     "test": "npm run test:claims -- --grep @claim:same-day-sessions",
-    "sandbox": "fresh real log; finish one same-day session and assert its set becomes previous-session context"
+    "sandbox": "fresh real log; finish one same-day session and assert its set becomes last-session context"
   },
   {
     "id": "offline-reload",

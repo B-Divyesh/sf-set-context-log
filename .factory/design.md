@@ -55,7 +55,7 @@ word or symbol, never color alone. Focus uses a two-part ink/brass ring.
 An 8 px base rhythm (`4, 8, 12, 16, 24, 32, 48, 64`). Reading measure tops out
 at 72 characters; the workbench is 1120 px. Controls are at least 48 px high,
 with 12 px between adjacent touch targets. Cards appear only for separate
-objects: the previous-set context card, the active entry console, and individual
+objects: the last-session context card, the active entry console, and individual
 history sessions. Corners are restrained (`2–12 px`) like formed sheet metal,
 not pill-heavy software chrome. Two-pixel rules and offset shadows provide the
 physical depth.
@@ -67,7 +67,7 @@ physical depth.
   compact first screen reveals the seeded workbench without losing the normal
   page’s job-first heading.
 - The first task is always exercise selection. Choosing an exercise reveals its
-  previous-set context directly above the entry row, preserving decision order.
+  last-session context directly above the entry row, preserving decision order.
 - Set context uses six large labeled keys (`Clean`, `Grip`, `Pause`,
   `Tempo`, `Form`, `Easy`). A short note remains optional and specific.
 - Saving produces a brief mechanical press and a live-region confirmation; the
@@ -92,7 +92,7 @@ smooth scrolling are removed and status changes are instant.
 - Prompt sheet / use case: `stylized-concept`.
 - Subject: top-down three-quarter still life of a compact mid-century exercise
   log instrument, with one weight dial, rep counter, six context keys, and a
-  previous-set paper card emerging from a slot.
+  last-session context paper card emerging from a slot.
 - World/materials: warm cream enamel, olive bakelite, brushed brass, red-orange
   key, fibrous paper, subtle gym-bench rubber texture.
 - Light/lens: soft directional studio light, 50 mm product lens, restrained

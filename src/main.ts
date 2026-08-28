@@ -110,11 +110,11 @@ function renderRecall(): void {
   const prior = previousSessionSets(entries, exercise, activeSessionId());
   recallCard.hidden = false;
   if (!prior.length) {
-    recallCard.innerHTML = `<p class="recall-label">Previous-set context</p><p class="recall-empty">No earlier session for <strong>${escapeHtml(exercise)}</strong>. Save this set to review it next session.</p>`;
+    recallCard.innerHTML = `<p class="recall-label">Last-session context</p><p class="recall-empty">No last-session context for <strong>${escapeHtml(exercise)}</strong>. Save this set to review it next session.</p>`;
     return;
   }
   const lastDate = entryDate(prior[0]!);
-  recallCard.innerHTML = `<p class="recall-label">Previous-set context · ${escapeHtml(formatDate(lastDate, { month: 'short', day: 'numeric' }))}</p><h3 class="recall-title">Last session: ${escapeHtml(exercise)}</h3><ol class="recall-sets">${prior.map((entry) => `<li><span class="recall-numbers">${entry.weight} ${entry.unit} × ${entry.reps}${entry.rpe ? ` @ ${entry.rpe}` : ''}</span><span class="recall-context">${contextMarkup(entry)}</span></li>`).join('')}</ol>`;
+  recallCard.innerHTML = `<p class="recall-label">Last-session context · ${escapeHtml(formatDate(lastDate, { month: 'short', day: 'numeric' }))}</p><h3 class="recall-title">Last-session context: ${escapeHtml(exercise)}</h3><ol class="recall-sets">${prior.map((entry) => `<li><span class="recall-numbers">${entry.weight} ${entry.unit} × ${entry.reps}${entry.rpe ? ` @ ${entry.rpe}` : ''}</span><span class="recall-context">${contextMarkup(entry)}</span></li>`).join('')}</ol>`;
 }
 
 function renderSession(): void {
@@ -360,6 +360,8 @@ async function registerServiceWorker(): Promise<void> {
 }
 
 function configureRoute(): void {
+  const routeName = isDemo ? 'Demo — Set Context Log' : 'Set Context Log';
+  byId<HTMLElement>('route-status').textContent = routeName;
   if (!isDemo) return;
   document.body.classList.add('demo-mode');
   byId<HTMLElement>('demo-banner').hidden = false;
@@ -369,8 +371,16 @@ function configureRoute(): void {
   document.querySelector<HTMLMetaElement>('meta[property="og:title"]')?.setAttribute('content', 'Demo — Set Context Log');
   document.querySelector<HTMLMetaElement>('meta[property="og:url"]')?.setAttribute('content', 'https://set-context-log.sociobot.in/demo');
   document.querySelector<HTMLMetaElement>('meta[name="twitter:title"]')?.setAttribute('content', 'Demo — Set Context Log');
-  byId<HTMLElement>('route-status').textContent = 'Demo — Set Context Log';
 }
+
+function focusRouteTitle(): void {
+  window.requestAnimationFrame(() => byId<HTMLHeadingElement>('page-title').focus());
+}
+
+window.addEventListener('pageshow', () => {
+  configureRoute();
+  focusRouteTitle();
+});
 
 async function init(): Promise<void> {
   configureRoute();
@@ -394,13 +404,13 @@ async function init(): Promise<void> {
       try { await clearAll(); window.location.assign('/'); }
       catch { showToast('The demo could not be cleared. Reset the demo before starting your real log.'); }
     });
-    requestAnimationFrame(() => byId<HTMLHeadingElement>('page-title').focus());
   }
   form.inert = false;
   form.setAttribute('aria-busy', 'false');
   form.dataset.ready = 'true';
   appLoading.hidden = true;
   await registerServiceWorker();
+  focusRouteTitle();
 }
 
 init().catch(() => showToast('Set Context Log could not open browser storage. Reload the page or allow site storage.'));

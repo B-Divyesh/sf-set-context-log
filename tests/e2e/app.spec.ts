@@ -40,7 +40,7 @@ test('supports keyboard marker selection and set logging', async ({ page }) => {
   await expect(page.locator('#session-list').getByText('Grip')).toBeVisible();
 });
 
-test('imports a prior session and opens recall for that exercise', async ({ page }) => {
+test('imports last-session context for that exercise', async ({ page }) => {
   const backup = {
     schema: 'set-context-log/v1',
     exportedAt: '2026-08-27T08:00:00.000Z',
@@ -52,7 +52,7 @@ test('imports a prior session and opens recall for that exercise', async ({ page
   };
   await page.locator('#import-json').setInputFiles({ name: 'backup.json', mimeType: 'application/json', buffer: Buffer.from(JSON.stringify(backup)) });
   await page.getByLabel(/Exercise/).fill('Bench press');
-  await expect(page.getByText(/Last session: Bench press/)).toBeVisible();
+  await expect(page.getByText(/Last-session context: Bench press/)).toBeVisible();
   await expect(page.locator('#recall-card').getByText('Long first pause')).toBeVisible();
   await expect(page.getByLabel('Weight unit')).toHaveValue('lb');
 });
@@ -95,4 +95,30 @@ test('moves focus into settings and returns it when closed', async ({ page }) =>
   await expect(page.getByRole('button', { name: 'Close settings' })).toBeFocused();
   await page.keyboard.press('Escape');
   await expect(trigger).toBeFocused();
+});
+
+test('moves focus and announces when returning home by link and browser Back', async ({ page }) => {
+  await page.goto('/privacy/');
+  await expect(page.getByRole('heading', { level: 1 })).toBeFocused();
+  await page.locator('header .brand').click();
+  await expect(page).toHaveURL(/\/$/);
+  await expect(page.locator('#page-title')).toBeFocused();
+  await expect(page.locator('#route-status')).toHaveText('Set Context Log');
+
+  await page.getByRole('link', { name: 'Demo', exact: true }).click();
+  await expect(page).toHaveURL(/\/demo$/);
+  await page.goBack();
+  await expect(page).toHaveURL(/\/$/);
+  await expect(page.locator('#page-title')).toBeFocused();
+  await expect(page.locator('#route-status')).toHaveText('Set Context Log');
+});
+
+test('keeps a visible connection word at mobile width in both states', async ({ page, context }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  const status = page.locator('#connection-status');
+  await expect(status).toContainText('Online');
+  await expect(status).toHaveCSS('font-size', /^(?!0px)/);
+  await context.setOffline(true);
+  await expect(status).toContainText('Offline');
+  await expect(status).toHaveCSS('font-size', /^(?!0px)/);
 });

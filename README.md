@@ -1,7 +1,7 @@
 # Set Context Log
 
 Set Context Log records weight, reps, effort, and what changed for each lifting
-set. It is for self-directed lifters who want the last session’s context before
+set. It is for self-directed lifters who want last-session context before
 their next set.
 
 Try the isolated sample at
@@ -12,8 +12,8 @@ and never reads or changes the real log (`demo-isolation`).
 
 - Records kg or lb, reps, effort, six set-context markers, and a note
   (`set-fields`).
-- Shows the previous session when you choose a saved exercise
-  (`previous-session-recall`).
+- Shows last-session context when you choose a saved exercise
+  (`last-session-recall`).
 - Separates two sessions on the same day when you select **Finish session**
   (`same-day-sessions`).
 - Groups the history by session (`session-history`).

@@ -1,4 +1,4 @@
-# Copy audit — polish 1
+# Copy audit — polish 2
 
 Audited 2026-08-28. Counts treat hyphenated terms, URLs, and code tokens as
 one word. No sentence exceeds 22 words. No shipped sentence uses a banned
@@ -6,8 +6,8 @@ marketing word.
 
 ## First-screen read aloud
 
-“Log what changed each lifting set. For self-directed lifters who need last
-session’s context before the next set. Try it with sample data.”
+“Log what changed each lifting set. For self-directed lifters who need
+last-session context before the next set. Try it with sample data.”
 
 The job, user, and first action fit in one breath. The action’s adjacent line
 explains that it opens a separate sample.
@@ -17,19 +17,19 @@ explains that it opens a separate sample.
 | Words | Sentence or complete UI message |
 | ---: | --- |
 | 6 | Log what changed each lifting set. |
-| 12 | For self-directed lifters who need last session’s context before the next set. |
+| 12 | For self-directed lifters who need last-session context before the next set. |
 | 7 | Opens a separate demo with sample sessions. |
 | 2 | No account. |
 | 6 | Works offline after first visit. |
 | 3 | Free to use. |
-| 9 | Review the last set before logging the next one. |
+| 8 | Review last-session context before logging the next set. |
 | 4 | Opening your local log… |
 | 9 | Choose a saved exercise or type a new one. |
 | 4 | No saved sets yet. |
 | 7 | Your first set will appear here. |
-| 9 | Saved exercises show their previous session above the entry fields. |
+| 8 | Saved exercises show last-session context above the entry fields. |
 | 11 | Add weight, reps, effort, a set-context marker, or a short note. |
-| 9 | Previous-set context appears before you log the next set. |
+| 8 | Last-session context appears before you log the next set. |
 | 7 | Saved markers appear with each past set. |
 | 6 | Download a JSON backup or CSV file. |
 | 8 | Import adds new sets without replacing saved sets. |
@@ -41,7 +41,7 @@ explains that it opens a separate sample.
 | 5 | A fresh version is ready. |
 
 Headings and controls are also literal: “Log today’s sets,” “Finish session,”
-“Choose an exercise,” “Mark what changed,” “Review last session,” “Past sets
+“Choose an exercise,” “Mark what changed,” “Review last-session context,” “Past sets
 and notes,” “Export JSON,” “Export CSV,” “Import JSON,” “Change settings,”
 “Install app,” “Keep set,” and “Reload app.”
 
@@ -49,7 +49,7 @@ and notes,” “Export JSON,” “Export CSV,” “Import JSON,” “Change 
 
 | Maximum words | Message or template |
 | ---: | --- |
-| 11 | No earlier session for [exercise]. Save this set to review it next session. |
+| 13 | No last-session context for [exercise]. Save this set to review it next session. |
 | 3 | No context marked. |
 | 6 | No saved exercises match that search. |
 | 7 | [Exercise] set saved in this browser. |
@@ -83,10 +83,10 @@ message is 12 words: “That file is not a Set Context Log v1 backup.”
 | Words | Sentence or product bullet |
 | ---: | --- |
 | 14 | Set Context Log records weight, reps, effort, and what changed for each lifting set. |
-| 15 | It is for self-directed lifters who want the last session’s context before their next set. |
+| 14 | It is for self-directed lifters who want last-session context before their next set. |
 | 21 | Try the isolated sample at [demo URL]. It opens with realistic sessions and never reads or changes the real log. |
 | 14 | Records kg or lb, reps, effort, six set-context markers, and a note. |
-| 11 | Shows the previous session when you choose a saved exercise. |
+| 9 | Shows last-session context when you choose a saved exercise. |
 | 14 | Separates two sessions on the same day when you select Finish session. |
 | 7 | Groups the history by session. |
 | 8 | Downloads every set as JSON or CSV. |
@@ -121,7 +121,7 @@ message is 12 words: “That file is not a Set Context Log v1 backup.”
 | Concept | One term used |
 | --- | --- |
 | Marker or note attached to a set | set context |
-| Context shown from the last completed workout | previous-session context |
+| Context shown from the last completed workout | last-session context |
 | One bounded workout | session |
 | Stored earlier sessions | history |
 | Downloadable restore file | JSON backup |

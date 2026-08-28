@@ -62,11 +62,11 @@ test('@claim:set-fields records all set fields and six markers', async ({ page }
   expect(saved).toMatchObject({ weight: 87.5, unit: 'lb', reps: 4, rpe: 8.5, note: 'Brace held on every rep', markers });
 });
 
-test('@claim:previous-session-recall shows numbers, markers, and note before entry', async ({ page }) => {
+test('@claim:last-session-recall shows numbers, markers, and note before entry', async ({ page }) => {
   await openApp(page, '/?demo=1');
   const recall = page.locator('#recall-card');
   await expect(recall).toBeVisible();
-  await expect(recall.getByRole('heading', { name: 'Last session: Back squat' })).toBeVisible();
+  await expect(recall.getByRole('heading', { name: 'Last-session context: Back squat' })).toBeVisible();
   await expect(recall.getByText('100 kg × 5 @ 8', { exact: true })).toBeVisible();
   await expect(recall.getByText(/Pause/)).toBeVisible();
   await expect(recall.getByText('Two-second pause')).toBeVisible();
