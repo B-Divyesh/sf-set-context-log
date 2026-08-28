@@ -57,6 +57,10 @@ Live cold checks after deployment:
 Current build payload: JS 18.37 KB (6.65 KB gzip) and CSS 18.90 KB (4.91 KB
 gzip), both within the static PWA budget.
 
+Mobile Lighthouse against the deployed home: **100 Performance, 100
+Accessibility, 100 Best Practices, 100 SEO**; LCP 1.21 s, TBT 2 ms, and CLS
+0.004. The JSON report is `.factory/evidence/polish-2/lighthouse-mobile.json`.
+
 ## Run and deploy
 
 ```sh
