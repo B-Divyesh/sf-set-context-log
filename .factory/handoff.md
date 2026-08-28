@@ -1,4 +1,4 @@
-# Set Context Log — polish 2 handoff
+# Set Context Log — review 3 handoff
 
 ## Outcome
 
@@ -76,3 +76,20 @@ npm run test:claims
 
 None. The product deliberately has no paid tier, cloud sync, or AI feature:
 those are outside the researched offline, local-first lifting-log job.
+
+## Review 3 verification
+
+The requested independent adversarial review is recorded in
+`.factory/review-3.md` and returned **PASS** with zero findings. No product
+code was changed.
+
+- Fresh production checks at 390px and desktop confirmed the job, intended
+  user, and one-click sample action before scroll.
+- The live demo was checked for sample data, its persistent sandbox banner,
+  reset/exit controls, separate `demo:set-context-log` storage, first-party
+  traffic, and offline reload.
+- This review ran `npm ci`, `npm test` (13 tests), `npm run build`,
+  `npm run test:e2e`, and `npm run test:claims` (17 claims). Each command
+  listed in `.factory/claims.json` was also invoked separately.
+- Live route, metadata, focus/back behavior, link crawl, and designed 404
+  checks passed for home, demo, privacy, and terms.
