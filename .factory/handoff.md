@@ -1,11 +1,15 @@
 # Set Context Log — repair handoff
 
-## Verification status: PASS locally; live deployment verification follows this repair
+## Verification status: PASS — deployed and verified live
 
 This repair addresses all three findings in the independent report for
 candidate `80c50ed5b98f710b9534292c56f9ed50cad40b4c` without changing the
 product's researched job, local-first storage, paid-unlock contract, or passed
 flows.
+
+Deployed to <https://set-context-log.sociobot.in> from repair commit
+`8affd88c936f42242700f14178d9bc643a83782f` on 2026-08-28 using the factory
+Azure Static Web Apps static deployment workflow.
 
 ### Repair delivered
 
@@ -57,6 +61,26 @@ flows.
   **100**, Best Practices **100**, SEO **100**; FCP **1.2 s**, LCP **1.6 s**,
   TBT **40 ms**, CLS **0.002**. Initial JS is 16,621 B (6.41 kB gzip), CSS is
   18,303 B (4.86 kB gzip), and the hero is 51,234 B.
+
+### Live deployment evidence (2026-08-28)
+
+- The deployed HTML identifies the repaired artifact through
+  `/assets/panel-memory-c9dfb7b9.webp` alongside the expected hashed JS/CSS.
+- Live JS, CSS, and hero responses return
+  `Cache-Control: public, max-age=31536000, immutable`; HTML and `sw.js`
+  return `public, max-age=0, must-revalidate`.
+- Live `/manifest.webmanifest` returns
+  `Content-Type: application/manifest+json` and a one-day revalidating cache
+  policy. CSP, permissions policy, `X-Frame-Options: DENY`, `nosniff`, and
+  referrer policy are present on live responses.
+- `verify-url.sh https://set-context-log.sociobot.in` passed: HTTP 200,
+  title/lang/one h1/main/alt/button-label checks, desktop and mobile
+  screenshots, and zero console/page errors.
+- Fresh Chromium live sessions at 1440×1000 and 390×844 had no horizontal
+  overflow, made only first-party requests before a license is supplied, and
+  had no console errors. The service worker reached `ready`; after its first
+  controlling reload, an explicit offline 390px reload rendered the app shell
+  and `Offline · sets still save` status.
 
 The original independent failure report remains at
 [`.factory/verification.md`](verification.md). Generated local evidence stays
