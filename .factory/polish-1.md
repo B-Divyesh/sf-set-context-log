@@ -2,9 +2,9 @@
 
 **Result: PASS — 42/42 findings resolved**
 
-Candidate `9b1a047` was repaired from review commit `1b4f0de`. The functional
-repair was deployed from `07b2cab`; final documentation and evidence were added
-after the cold production check. Earlier review/polish files were searched:
+Candidate `9b1a047` was repaired from review commit `1b4f0de`. Functional
+source commit `87ef2c7` was deployed; final documentation and evidence were
+added after the cold production check. Earlier review/polish files were searched:
 `review-1.md` is the only review and no earlier polish report exists.
 
 Evidence shorthand below:
@@ -21,7 +21,7 @@ Evidence shorthand below:
 | Finding | Change made | Evidence |
 | --- | --- | --- |
 | F-1-1 | Replaced the vague hero with the requested job-first headline, named self-directed lifters, and placed the sample action plus explanation on the first screen. | `home`; live `/`; mobile first-action test in `app.spec.ts`. |
-| F-1-2 | Added one-click `/?demo=1` and `/demo`, six sample sets across four sessions, the persistent required banner, reset, exit, demo title, sitemap entry, and `.factory/demo.md`. | `@claim:demo-isolation`; `demo`; live `/?demo=1` and `/demo`. |
+| F-1-2 | Added one-click `/?demo=1` and `/demo`, six sample sets across four sessions, the persistent required banner, reset, exit, demo title, sitemap entry, and `.factory/demo.md`. The entry form waits for demo storage before accepting input. | `@claim:demo-isolation`; `demo`; live `/?demo=1` and `/demo`; final ready-state check. |
 | F-1-3 | Routed demo reads/writes to `demo:set-context-log` and `demo:` fallback keys. Reset and exit clear only that namespace. | `@claim:demo-isolation` and `@claim:local-storage`; live flow proves a real record remains hidden and unchanged. |
 | F-1-4 | Added `.factory/claims.json`, registry validation, and exactly one tagged test for each of 17 claims. | `claims-manifest.test.ts`; `clean` shows all 17 commands passed individually. |
 | F-1-5 | Removed the dead price, checkout link, restore UI, license runtime, and payment copy. All features are free. | `@claim:free-use`; “removes unavailable billing” unit test; live `/` contains no purchase UI. |
@@ -71,8 +71,8 @@ Evidence shorthand below:
   and 1440px.
 - Live cold matrix: all intended routes correct; unknown route HTTP 404; zero
   axe violations and no unexpected console errors.
-- Live Lighthouse mobile: 97 Performance, 100 Accessibility, 100 Best
-  Practices, 100 SEO; LCP 1.2 s, TBT 180 ms, CLS 0.062.
+- Live Lighthouse mobile: 99 Performance, 100 Accessibility, 100 Best
+  Practices, 100 SEO; LCP 1.2 s, TBT 26 ms, CLS 0.062.
 - Live response policies: immutable hashed assets, manifest MIME, CSP,
   permissions, referrer, frame, and nosniff headers all present.
 

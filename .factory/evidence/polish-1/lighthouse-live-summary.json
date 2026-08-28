@@ -1,16 +1,19 @@
 {
   "url": "https://set-context-log.sociobot.in/",
-  "fetchTime": "2026-08-28T12:14:07.924Z",
+  "fetchTime": "2026-08-28T12:36:42.678Z",
+  "lighthouseVersion": "13.4.1",
+  "deploymentId": "1f7e152b-c4bc-4676-bdf7-2909eb9f5c2e",
+  "sourceCommit": "87ef2c7",
   "scores": {
-    "performance": 97,
+    "performance": 99,
     "accessibility": 100,
     "bestPractices": 100,
     "seo": 100
   },
   "metrics": {
-    "FCP": "1.1 s",
+    "FCP": "0.9 s",
     "LCP": "1.2 s",
-    "TBT": "180 ms",
+    "TBT": "26 ms",
     "CLS": "0.062"
   }
 }

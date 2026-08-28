@@ -1,4 +1,8 @@
 {
+  "checkedAt": "2026-08-28T12:34:43.202Z",
+  "deploymentId": "1f7e152b-c4bc-4676-bdf7-2909eb9f5c2e",
+  "sourceCommit": "87ef2c7",
+  "jsAsset": "/assets/index-BPL3rGus.js",
   "routes": {
     "/": {
       "status": 200,
@@ -40,7 +44,7 @@
       "errors": [],
       "axe": []
     },
-    "/not-a-real-route-polish-1": {
+    "/not-a-real-route-polish-1-final": {
       "status": 404,
       "title": "Page not found — Set Context Log",
       "h1": 1,
@@ -56,12 +60,20 @@
     "seededRows": 6,
     "reset": true,
     "startForReal": true,
+    "exitDiscardedDemo": true,
     "origins": [
       "https://set-context-log.sociobot.in"
     ]
   },
   "offline": {
     "reload": true,
-    "save": true
-  }
+    "save": true,
+    "secondReloadPersistence": true
+  },
+  "readyState": {
+    "inertUntilStorageReady": true,
+    "formReady": true
+  },
+  "unexpectedConsoleErrors": [],
+  "expectedDocument404ConsoleMessages": 1
 }

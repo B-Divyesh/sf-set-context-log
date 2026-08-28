@@ -22,6 +22,8 @@ export are now free.
   same-day workouts and immediate previous-session recall.
 - Added `.factory/claims.json` with 17 claims and exactly one tagged browser
   test for each claim.
+- Kept the entry form inert behind a clear loading status until local storage
+  is ready, preventing demo seeding from overwriting fast user input.
 - Added real static route output, route-specific titles/canonicals/social
   metadata, a 1200×630 share image, a 180px touch icon, shared legal chrome,
   focus transfer, and a designed HTTP 404.
@@ -32,7 +34,7 @@ export are now free.
 
 ## Verification
 
-Clean clone of commit `07b2cab`:
+Clean clone of functional source commit `87ef2c7`:
 
 - `npm ci`: 59 packages installed; 0 vulnerabilities.
 - `npm test`: 12/12 passed.
@@ -40,17 +42,17 @@ Clean clone of commit `07b2cab`:
   404, and versioned `dist/sw.js` emitted.
 - Every command in `.factory/claims.json`: 17/17 passed individually.
 - `npm run test:e2e`: 50/50 passed across desktop and Pixel 5 projects.
-- Build payload: JS 18.15 KB (6.59 KB gzip), CSS 18.63 KB (4.85 KB gzip), hero
+- Build payload: JS 18.25 KB (6.64 KB gzip), CSS 18.80 KB (4.89 KB gzip), hero
   WebP 51.2 KB. No downloaded fonts.
 - Local cold-browser matrix: six routes/viewports, zero axe violations, zero
   unexpected console errors, one h1 and one main each, and zero horizontal
   overflow. See `.factory/evidence/polish-1/local-browser.json`.
-- Live Lighthouse mobile: Performance 97, Accessibility 100, Best Practices
-  100, SEO 100; FCP 1.1 s, LCP 1.2 s, TBT 180 ms, CLS 0.062.
+- Live Lighthouse mobile: Performance 99, Accessibility 100, Best Practices
+  100, SEO 100; FCP 0.9 s, LCP 1.2 s, TBT 26 ms, CLS 0.062.
 
 Production deployment completed through
 `/opt/fleet/lib/deploy-static.sh set-context-log dist` with deployment ID
-`e257d37e-ec09-4bbb-909b-b207d0cf5b89`.
+`1f7e152b-c4bc-4676-bdf7-2909eb9f5c2e` from source commit `87ef2c7`.
 
 Cold production checks on 2026-08-28:
 
@@ -59,6 +61,8 @@ Cold production checks on 2026-08-28:
 - `/not-a-real-route-polish-1` returns HTTP 404 with the designed page.
 - `/?demo=1` seeded six rows; real data stayed hidden; reset restored the seed;
   **Start for real** returned to the unchanged real record.
+- The new local-data ready state was present before entry, and the final
+  JavaScript asset was `/assets/index-BPL3rGus.js`.
 - Offline reload worked, a new set saved offline, and it survived another
   offline reload.
 - Anonymous demo traffic remained on
