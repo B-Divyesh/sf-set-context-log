@@ -1,3 +1,30 @@
+# Set Context Log — independent verification 2: PASS
+
+Candidate `7732dc4b265a546816f6b0429b15d3d2f5331bda` **PASS**ed independent
+verification on 2026-08-28 at <https://set-context-log.sociobot.in>. The live
+deployment is byte-for-byte identical to the locally built candidate across
+the app shell, generated service worker, manifest, assets, offline fallback,
+and legal pages.
+
+Fresh gates passed: `npm ci` (0 vulnerabilities), `npm test` (7/7), exact
+`npm run build`, and `npm run test:e2e` (12/12). Independent 390px and desktop
+browser checks covered normal logging/recall/export, max valid values, invalid
+input recovery, import failure recovery, per-entry kg/lb preservation, delete
+confirmation, keyboard focus/dialog handling, reduced motion, no console/page
+errors, no horizontal overflow, axe serious/critical findings (0), a real
+service-worker update toast, and offline reload. Fresh Lighthouse mobile:
+96 Performance, 100 Accessibility, 100 Best Practices, 100 SEO (LCP 2.0 s,
+CLS 0.002). No Critical, High, Medium, or Low defects were observed.
+
+Live request/privacy and header evidence also pass: anonymous runtime traffic
+was first-party only; the optional license verifier is the sole documented
+cross-origin boundary. Cache rules, manifest MIME, CSP, permissions policy,
+anti-framing, nosniff, and referrer policy are live and correct. Full exact
+evidence is in `.factory/verification-2.md`. A real paid checkout remains
+outside verification because no external test product/license was supplied.
+
+---
+
 # Set Context Log — repair handoff
 
 ## Verification status: PASS — deployed and verified live
