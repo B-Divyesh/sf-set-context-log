@@ -17,6 +17,7 @@ const url = new URL(window.location.href);
 const isDemo = url.pathname.replace(/\/$/, '') === '/demo' || url.searchParams.get('demo') === '1';
 const today = localDateKey(new Date());
 const form = byId<HTMLFormElement>('set-form');
+const appLoading = byId<HTMLElement>('app-loading');
 const exerciseInput = byId<HTMLInputElement>('exercise');
 const exerciseList = byId<HTMLDataListElement>('exercise-list');
 const weightInput = byId<HTMLInputElement>('weight');
@@ -395,6 +396,10 @@ async function init(): Promise<void> {
     });
     requestAnimationFrame(() => byId<HTMLHeadingElement>('page-title').focus());
   }
+  form.inert = false;
+  form.setAttribute('aria-busy', 'false');
+  form.dataset.ready = 'true';
+  appLoading.hidden = true;
   await registerServiceWorker();
 }
 

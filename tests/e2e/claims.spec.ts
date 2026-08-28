@@ -3,6 +3,11 @@ import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { expect, test, type Download, type Page } from '@playwright/test';
 
+async function openApp(page: Page, path: '/' | '/?demo=1'): Promise<void> {
+  await page.goto(path);
+  await expect(page.locator('#set-form')).toHaveAttribute('data-ready', 'true');
+}
+
 async function logSet(page: Page, values: { exercise: string; weight?: string; unit?: 'kg' | 'lb'; reps?: string; effort?: string; note?: string; markers?: string[] }): Promise<void> {
   await page.getByLabel(/Exercise/).fill(values.exercise);
   await page.getByLabel(/Weight \(required\)/).fill(values.weight ?? '100');
@@ -29,9 +34,9 @@ async function exportedJson(page: Page): Promise<{ schema: string; sets: Array<R
 }
 
 test('@claim:demo-isolation seeds, resets, and leaves real records untouched', async ({ page }) => {
-  await page.goto('/');
+  await openApp(page, '/');
   await logSet(page, { exercise: 'Real baseline', weight: '80' });
-  await page.goto('/?demo=1');
+  await openApp(page, '/?demo=1');
   await expect(page).toHaveTitle('Demo — Set Context Log');
   await expect(page.getByText('Demo — sample data, nothing is saved')).toBeVisible();
   await expect(page.getByText('Real baseline')).toHaveCount(0);
@@ -49,7 +54,7 @@ test('@claim:demo-isolation seeds, resets, and leaves real records untouched', a
 });
 
 test('@claim:set-fields records all set fields and six markers', async ({ page }) => {
-  await page.goto('/?demo=1');
+  await openApp(page, '/?demo=1');
   const markers = ['Clean', 'Grip', 'Pause', 'Tempo', 'Form', 'Easy'];
   await logSet(page, { exercise: 'Front squat', weight: '87.5', unit: 'lb', reps: '4', effort: '8.5', note: 'Brace held on every rep', markers });
   const bundle = await exportedJson(page);
@@ -58,7 +63,7 @@ test('@claim:set-fields records all set fields and six markers', async ({ page }
 });
 
 test('@claim:previous-session-recall shows numbers, markers, and note before entry', async ({ page }) => {
-  await page.goto('/?demo=1');
+  await openApp(page, '/?demo=1');
   const recall = page.locator('#recall-card');
   await expect(recall).toBeVisible();
   await expect(recall.getByRole('heading', { name: 'Last session: Back squat' })).toBeVisible();
@@ -70,7 +75,7 @@ test('@claim:previous-session-recall shows numbers, markers, and note before ent
 test('@claim:local-storage persists locally and erases through settings', async ({ page, browser }) => {
   const origins = new Set<string>();
   page.on('request', (request) => origins.add(new URL(request.url()).origin));
-  await page.goto('/?demo=1');
+  await openApp(page, '/?demo=1');
   await logSet(page, { exercise: 'Local-only set', note: 'Kept in demo storage' });
   await page.reload();
   await expect(page.locator('#session-list').getByText('Local-only set')).toBeVisible();
@@ -92,7 +97,7 @@ test('@claim:local-storage persists locally and erases through settings', async 
 });
 
 test('@claim:json-export downloads the complete seeded backup', async ({ page }) => {
-  await page.goto('/?demo=1');
+  await openApp(page, '/?demo=1');
   const bundle = await exportedJson(page);
   expect(bundle.schema).toBe('set-context-log/v1');
   expect(bundle.sets).toHaveLength(6);
@@ -100,7 +105,7 @@ test('@claim:json-export downloads the complete seeded backup', async ({ page })
 });
 
 test('@claim:csv-export includes every row and escapes set context', async ({ page }) => {
-  await page.goto('/?demo=1');
+  await openApp(page, '/?demo=1');
   await logSet(page, { exercise: 'Row, test', unit: 'lb', markers: ['Grip'], note: 'Slow, "clean"' });
   const pending = page.waitForEvent('download');
   await page.getByRole('button', { name: 'Export CSV' }).click();
@@ -111,7 +116,7 @@ test('@claim:csv-export includes every row and escapes set context', async ({ pa
 });
 
 test('@claim:json-import-merge keeps a duplicate and adds a new ID', async ({ page }) => {
-  await page.goto('/');
+  await openApp(page, '/');
   const base = { schema: 'set-context-log/v1', exportedAt: '2026-08-28T08:00:00.000Z', settings: { defaultUnit: 'kg' } };
   const first = { id: 'stable', exercise: 'Bench press', weight: 100, unit: 'kg', reps: 5, rpe: 8, markers: ['Pause'], note: 'Original', performedAt: '2026-08-28T08:00:00.000Z', sessionId: 'session-a' };
   await page.locator('#import-json').setInputFiles({ name: 'first.json', mimeType: 'application/json', buffer: Buffer.from(JSON.stringify({ ...base, sets: [first] })) });
@@ -124,7 +129,7 @@ test('@claim:json-import-merge keeps a duplicate and adds a new ID', async ({ pa
 });
 
 test('@claim:unit-preservation keeps saved units when the default changes', async ({ page }) => {
-  await page.goto('/');
+  await openApp(page, '/');
   await logSet(page, { exercise: 'Press', weight: '50', unit: 'kg' });
   await page.getByRole('button', { name: 'Change settings' }).click();
   await page.getByLabel('Default unit for new sets').selectOption('lb');
@@ -135,14 +140,14 @@ test('@claim:unit-preservation keeps saved units when the default changes', asyn
 });
 
 test('@claim:session-history groups all seeded sets into sessions', async ({ page }) => {
-  await page.goto('/?demo=1');
+  await openApp(page, '/?demo=1');
   await expect(page.locator('.history-day')).toHaveCount(4);
   await expect(page.locator('.history-table tbody tr')).toHaveCount(6);
   await expect(page.locator('.history-day h3').filter({ hasText: '2 sets' })).toHaveCount(2);
 });
 
 test('@claim:same-day-sessions recalls a finished session on the same date', async ({ page }) => {
-  await page.goto('/');
+  await openApp(page, '/');
   await logSet(page, { exercise: 'Back squat', weight: '90', note: 'Morning session' });
   await page.getByRole('button', { name: 'Finish session' }).click();
   await expect(page.locator('#session-list li')).toHaveCount(0);
@@ -152,7 +157,7 @@ test('@claim:same-day-sessions recalls a finished session on the same date', asy
 });
 
 test('@claim:offline-reload keeps the demo usable without a network', async ({ page, context }) => {
-  await page.goto('/?demo=1');
+  await openApp(page, '/?demo=1');
   await page.evaluate(() => navigator.serviceWorker.ready);
   await page.reload();
   await context.setOffline(true);
@@ -167,7 +172,7 @@ test('@claim:offline-reload keeps the demo usable without a network', async ({ p
 test('@claim:anonymous-runtime loads no account or third-party runtime', async ({ page }) => {
   const requests: string[] = [];
   page.on('request', (request) => requests.push(request.url()));
-  await page.goto('/?demo=1');
+  await openApp(page, '/?demo=1');
   await page.waitForLoadState('networkidle');
   const resources = await page.evaluate(() => performance.getEntriesByType('resource').map((entry) => entry.name));
   expect([...requests, ...resources].every((value) => new URL(value).origin === 'http://127.0.0.1:4173')).toBe(true);
@@ -177,7 +182,7 @@ test('@claim:anonymous-runtime loads no account or third-party runtime', async (
 });
 
 test('@claim:free-use exposes the complete product without purchase UI', async ({ page }) => {
-  await page.goto('/');
+  await openApp(page, '/');
   for (const name of ['Log this set', 'Export JSON', 'Export CSV', 'Change settings', 'Erase all local data']) {
     if (name === 'Erase all local data') {
       await page.getByRole('button', { name: 'Change settings' }).click();

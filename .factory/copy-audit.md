@@ -23,6 +23,7 @@ explains that it opens a separate sample.
 | 6 | Works offline after first visit. |
 | 3 | Free to use. |
 | 9 | Review the last set before logging the next one. |
+| 4 | Opening your local log… |
 | 9 | Choose a saved exercise or type a new one. |
 | 4 | No saved sets yet. |
 | 7 | Your first set will appear here. |

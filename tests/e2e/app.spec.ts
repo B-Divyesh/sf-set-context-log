@@ -1,8 +1,12 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
 
-test('logs, persists, recalls, and exports a set', async ({ page }) => {
+test.beforeEach(async ({ page }) => {
   await page.goto('/');
+  await expect(page.locator('#set-form')).toHaveAttribute('data-ready', 'true');
+});
+
+test('logs, persists, recalls, and exports a set', async ({ page }) => {
   await expect(page).toHaveTitle(/Set Context Log/);
   await expect(page.locator('h1')).toHaveCount(1);
   await page.getByLabel(/Exercise/).fill('Back squat');
@@ -23,7 +27,6 @@ test('logs, persists, recalls, and exports a set', async ({ page }) => {
 });
 
 test('supports keyboard marker selection and set logging', async ({ page }) => {
-  await page.goto('/');
   await page.getByLabel(/Exercise/).fill('Deadlift');
   await page.getByLabel(/Weight \(required\)/).fill('180');
   await page.getByLabel(/Reps \(required\)/).fill('3');
@@ -38,7 +41,6 @@ test('supports keyboard marker selection and set logging', async ({ page }) => {
 });
 
 test('imports a prior session and opens recall for that exercise', async ({ page }) => {
-  await page.goto('/');
   const backup = {
     schema: 'set-context-log/v1',
     exportedAt: '2026-08-27T08:00:00.000Z',
@@ -57,13 +59,13 @@ test('imports a prior session and opens recall for that exercise', async ({ page
 
 test('has no serious accessibility violations at mobile width', async ({ page }) => {
   await page.goto('/?demo=1');
+  await expect(page.locator('#set-form')).toHaveAttribute('data-ready', 'true');
   const results = await new AxeBuilder({ page }).analyze();
   const serious = results.violations.filter((violation) => ['serious', 'critical'].includes(violation.impact ?? ''));
   expect(serious).toEqual([]);
 });
 
 test('reopens offline after the service worker is ready', async ({ page, context }) => {
-  await page.goto('/');
   await page.evaluate(() => navigator.serviceWorker.ready);
   await page.reload();
   await context.setOffline(true);
@@ -73,7 +75,6 @@ test('reopens offline after the service worker is ready', async ({ page, context
 });
 
 test('shows the in-app update message from the service worker', async ({ page }) => {
-  await page.goto('/');
   await page.evaluate(async () => {
     await navigator.serviceWorker.ready;
     navigator.serviceWorker.dispatchEvent(new MessageEvent('message', { data: { type: 'UPDATE_AVAILABLE' } }));
@@ -83,14 +84,12 @@ test('shows the in-app update message from the service worker', async ({ page })
 });
 
 test('keeps the 390px layout within the viewport and exposes the primary action', async ({ page }) => {
-  await page.goto('/');
   await expect(page.getByRole('link', { name: /Try it with sample data/ })).toBeVisible();
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
   expect(overflow).toBeLessThanOrEqual(0);
 });
 
 test('moves focus into settings and returns it when closed', async ({ page }) => {
-  await page.goto('/');
   const trigger = page.getByRole('button', { name: 'Change settings' });
   await trigger.click();
   await expect(page.getByRole('button', { name: 'Close settings' })).toBeFocused();

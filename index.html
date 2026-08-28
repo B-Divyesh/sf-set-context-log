@@ -57,7 +57,8 @@
 
       <section class="workbench" aria-labelledby="log-heading">
         <div class="section-heading"><div><p class="eyebrow">Current session</p><h2 id="log-heading">Log today’s sets</h2></div><time id="session-date"></time></div>
-        <form id="set-form" class="set-form" novalidate>
+        <p id="app-loading" class="app-loading" role="status">Opening your local log…</p>
+        <form id="set-form" class="set-form" novalidate inert aria-busy="true">
           <div class="exercise-field"><label for="exercise">Exercise <span>(required)</span></label><input id="exercise" name="exercise" list="exercise-list" autocomplete="off" required maxlength="80" placeholder="e.g. Back squat" aria-describedby="exercise-hint form-error" /><datalist id="exercise-list"></datalist><p id="exercise-hint" class="field-hint">Choose a saved exercise or type a new one.</p></div>
           <div id="recall-card" class="recall-card" aria-live="polite" hidden></div>
           <div class="number-bank">
