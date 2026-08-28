@@ -1,4 +1,25 @@
-# Set Context Log — build handoff
+# Set Context Log — verification handoff
+
+## Verification status: FAIL — deployment acceptance
+
+Independent verification on **2026-08-28** tested commit
+`80c50ed5b98f710b9534292c56f9ed50cad40b4c` at
+<https://set-context-log.sociobot.in>. The live artifact is byte-for-byte
+identical to the candidate build, and all local tests, end-to-end flows,
+offline reload, accessibility, privacy-request, bundle, and Lighthouse checks
+passed. The release is nevertheless **FAIL** because production serves hashed
+JS/CSS/WebP with `Cache-Control: public, must-revalidate, max-age=30`, rather
+than the required long-lived immutable cache policy. Production also serves
+`manifest.webmanifest` as `application/octet-stream`.
+
+See [`.factory/verification.md`](verification.md) for exact evidence,
+reproduction commands, and the complete severity-ranked defect list. The P1
+host caching configuration must be corrected and re-verified before release;
+the P2 manifest MIME type should be corrected in the same deployment change.
+
+---
+
+# Original build handoff
 
 ## Delivered
 
