@@ -22,6 +22,21 @@ test('logs, persists, recalls, and exports a set', async ({ page }) => {
   expect(download.suggestedFilename()).toMatch(/^set-context-log-.*\.json$/);
 });
 
+test('supports keyboard marker selection and set logging', async ({ page }) => {
+  await page.goto('/');
+  await page.getByLabel('Exercise', { exact: true }).fill('Deadlift');
+  await page.getByLabel('Weight', { exact: true }).fill('180');
+  await page.getByLabel('Reps').fill('3');
+  const marker = page.locator('input[name="marker"][value="Grip"]');
+  await marker.focus();
+  await page.keyboard.press('Space');
+  await expect(marker).toBeChecked();
+  await page.getByRole('button', { name: 'Log this set' }).focus();
+  await page.keyboard.press('Enter');
+  await expect(page.getByRole('status').filter({ hasText: 'Deadlift set logged on this device.' })).toBeVisible();
+  await expect(page.locator('#session-list').getByText('Grip')).toBeVisible();
+});
+
 test('imports a prior session and opens recall for that exercise', async ({ page }) => {
   await page.goto('/');
   const backup = {
@@ -55,4 +70,14 @@ test('reopens offline after the service worker is ready', async ({ page, context
   await page.reload();
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Remember the set');
   await expect(page.getByRole('status').filter({ hasText: 'Offline' })).toBeVisible();
+});
+
+test('shows the in-app update message from the service worker', async ({ page }) => {
+  await page.goto('/');
+  await page.evaluate(async () => {
+    await navigator.serviceWorker.ready;
+    navigator.serviceWorker.dispatchEvent(new MessageEvent('message', { data: { type: 'UPDATE_AVAILABLE' } }));
+  });
+  await expect(page.getByText('A fresh version is ready.')).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Reload' })).toBeVisible();
 });

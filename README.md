@@ -67,8 +67,13 @@ and do not overwrite existing sets. Browser storage should not be treated as a
 backup, so users who value long-term records should export periodically.
 
 Deploy the complete `dist/` directory to any static host with HTTPS. The
-factory owns infrastructure, DNS, billing registration, and production
-deployment. Privacy and terms are available at `/privacy/` and `/terms/`.
+included `staticwebapp.config.json` supplies immutable caching only for
+content-versioned assets, short revalidation for HTML and `sw.js`, the correct
+web-manifest MIME type, and the app's CSP and permissions policy. Hosts that
+do not read Azure Static Web Apps configuration must apply equivalent response
+rules. The factory owns infrastructure, DNS, billing registration, and
+production deployment. Privacy and terms are available at `/privacy/` and
+`/terms/`.
 
 The visual system and image provenance are in
 [`.factory/design.md`](.factory/design.md). Build verification and known gaps

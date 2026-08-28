@@ -1,21 +1,60 @@
-# Set Context Log — verification handoff
+# Set Context Log — repair handoff
 
-## Verification status: FAIL — deployment acceptance
+## Verification status: PASS locally; live deployment verification follows this repair
 
-Independent verification on **2026-08-28** tested commit
-`80c50ed5b98f710b9534292c56f9ed50cad40b4c` at
-<https://set-context-log.sociobot.in>. The live artifact is byte-for-byte
-identical to the candidate build, and all local tests, end-to-end flows,
-offline reload, accessibility, privacy-request, bundle, and Lighthouse checks
-passed. The release is nevertheless **FAIL** because production serves hashed
-JS/CSS/WebP with `Cache-Control: public, must-revalidate, max-age=30`, rather
-than the required long-lived immutable cache policy. Production also serves
-`manifest.webmanifest` as `application/octet-stream`.
+This repair addresses all three findings in the independent report for
+candidate `80c50ed5b98f710b9534292c56f9ed50cad40b4c` without changing the
+product's researched job, local-first storage, paid-unlock contract, or passed
+flows.
 
-See [`.factory/verification.md`](verification.md) for exact evidence,
-reproduction commands, and the complete severity-ranked defect list. The P1
-host caching configuration must be corrected and re-verified before release;
-the P2 manifest MIME type should be corrected in the same deployment change.
+### Repair delivered
+
+- Added `public/staticwebapp.config.json`, which Vite copies to the root of
+  `dist/` for the factory's Azure Static Web Apps deployment. HTML and `sw.js`
+  use `public, max-age=0, must-revalidate`; only `/assets/*` uses
+  `public, max-age=31536000, immutable`.
+- Renamed the formerly unversioned hero to
+  `panel-memory-c9dfb7b9.webp` (its SHA-256 prefix) before applying immutable
+  caching. Vite's JS/CSS outputs already have content-versioned names.
+- Serves `/manifest.webmanifest` as `application/manifest+json`.
+- Added a restrictive same-origin CSP, an explicit permissions policy,
+  `X-Frame-Options: DENY`, `nosniff`, referrer policy, and cross-domain-policy
+  protection. The only external CSP connection allowances are the documented
+  production and pilot Sociobot license-verification APIs.
+
+### Regression coverage and local evidence (2026-08-28)
+
+- `npm ci`: pass; 0 known vulnerabilities.
+- `npm test`: pass, 7/7 tests. `tests/deployment-config.test.ts` asserts the
+  exact cache, manifest MIME, CSP, permissions, and anti-framing rules.
+- `npm run build`: pass. The build now runs
+  `scripts/verify-deployment-config.mjs`, which verifies the emitted
+  `dist/staticwebapp.config.json`, short document/service-worker cache policy,
+  immutable asset policy, manifest MIME type, and that every immutable asset
+  is content-versioned (including the hero).
+- `npm run test:e2e`: pass, 12/12 Chromium tests across 1440×1000 desktop and
+  Pixel 5 mobile. Coverage includes logging/persistence/export,
+  import/recall, keyboard Space/Enter marker and submit behavior, axe serious/
+  critical scan, offline reload, and the service-worker update message.
+- Azure Static Web Apps CLI served the built `dist/` and returned exact headers:
+  JS and hero `Cache-Control: public, max-age=31536000, immutable`; manifest
+  `Content-Type: application/manifest+json`; HTML and `sw.js`
+  `public, max-age=0, must-revalidate`; CSP, permissions policy, and
+  `X-Frame-Options: DENY` on all responses.
+- Factory `verify-url.sh` against that emulator: HTTP 200, title/lang/one h1/
+  main/alt/button-label checks passed, and no console or page errors at desktop
+  or 390 px mobile.
+- Browser request smoke at 1440×1000 and 390×844: no horizontal overflow, no
+  console errors, and only first-party runtime requests before any optional
+  license is supplied.
+- Lighthouse 12.8.2 mobile emulator run: Performance **100**, Accessibility
+  **100**, Best Practices **100**, SEO **100**; FCP **1.2 s**, LCP **1.6 s**,
+  TBT **40 ms**, CLS **0.002**. Initial JS is 16,621 B (6.41 kB gzip), CSS is
+  18,303 B (4.86 kB gzip), and the hero is 51,234 B.
+
+The original independent failure report remains at
+[`.factory/verification.md`](verification.md). Generated local evidence stays
+ignored in `.factory/evidence/`.
 
 ---
 
