@@ -1,58 +1,74 @@
-# Set Context Log — adversarial review 2 handoff
+# Set Context Log — polish 2 handoff
 
 ## Outcome
 
-Review 2 is complete with verdict **FAIL**. No product code was changed.
-`.factory/review-2.md` contains the full first-read, copy, demo, claims,
-history, structure, accessibility, routing, and missed-leverage audit.
+**PASS.** Repair commit `b0996d622d018ab79ddb2047a25655fbf64337ed`
+resolves every finding in `review-1.md`, `polish-1.md`, and `review-2.md`.
+The product was deployed with `/opt/fleet/lib/deploy-static.sh set-context-log
+/work/repo/dist` to <https://set-context-log.sociobot.in>.
 
-Three findings remain:
+The three round-2 repairs are:
 
-- F-2-1 is blocking and reopens F-1-34 because the prior-session recall feature
-  still uses several conflicting names.
-- F-2-2 covers missing h1 focus/announcement when navigation returns to `/`.
-- F-2-3 covers the mobile online/offline indicator relying on color alone.
+- One visitor-facing recall term: **last-session context**. The old variants
+  are rejected by a copy regression test.
+- Home-route focus and polite status announcement on normal navigation and
+  browser Back/pageshow restoration.
+- Visible mobile `Online` / `Offline` status text at 390 px; it no longer
+  relies on a colored dot.
 
-## Verification performed
+The one-click `?demo=1`/`/demo` sandbox, separate `demo:set-context-log`
+storage, seeded sample, reset/exit controls, PWA, export/import, real routing,
+legal pages, 404, and 17-claim registry remain present and verified.
 
-- Cold live Chromium at 390×844 and 1440×1000.
-- Live one-click demo, seeded recall, reset, exit, real/demo IndexedDB
-  isolation, same-origin interception, and offline save/reload.
-- Every exact command in `.factory/claims.json` from a fresh temporary clone:
-  17/17 passed.
-- `npm test`: 12/12 passed.
-- `npm run build`: passed; JS 18.25 KB (6.64 KB gzip), CSS 18.80 KB
-  (4.89 KB gzip).
-- `npm run test:e2e`: 50/50 passed across desktop and mobile.
-- Live route/metadata/axe/overflow/console matrix for home, demo, Privacy,
-  Terms, and 404.
-- Live crawl of all discovered links and fragments; no dead link found.
-- Finding-by-finding check of all 42 items from review 1 against live behavior
-  and current code.
+## Exact verification evidence
 
-## Reproduce
+Clean clone: `/tmp/set-context-log-clean.N2vG1u` at repair commit `b0996d6`.
+
+```sh
+npm ci                 # 0 vulnerabilities
+npm test               # 13/13
+npm run build          # PASS; dist/ emitted
+npm run test:e2e       # 54/54, desktop and mobile
+```
+
+Every exact command in `.factory/claims.json` was run individually from that
+clean clone: **17/17 passed**. This includes isolation, set fields,
+last-session recall, local storage, JSON/CSV export, import merge, units,
+session history, same-day sessions, offline reload, anonymous runtime, free
+use, build output, deployment policy, routes, and art provenance.
+
+Live cold checks after deployment:
+
+- `verify-url.sh` passed on `/`, `/?demo=1`, `/privacy/`, and `/terms/`.
+  Reports at `.factory/evidence/polish-2/*/verify.json` record correct titles,
+  `lang=en`, one h1, main landmark, all images having alt text, and zero
+  application console errors.
+- Live 390 px axe scan: zero serious/critical violations on `/`, `/?demo=1`,
+  `/privacy/`, `/terms/`, and an unknown route.
+- Live unknown route: HTTP 404, title `Page not found — Set Context Log`, and
+  screenshot `.factory/evidence/polish-2/live-404-mobile.png`.
+- Live home and demo screenshots:
+  `.factory/evidence/polish-2/live-home-mobile.png` and
+  `.factory/evidence/polish-2/live-demo-mobile.png`.
+- Live regression browser check confirmed the home h1 receives focus after
+  Privacy → Home, the polite route status is `Set Context Log`, and the
+  390-px connection label has computed font size `11px`.
+
+Current build payload: JS 18.37 KB (6.65 KB gzip) and CSS 18.90 KB (4.91 KB
+gzip), both within the static PWA budget.
+
+## Run and deploy
 
 ```sh
 npm ci
 npm test
 npm run build
-npm run test:claims
 npm run test:e2e
+npm run test:claims
+/opt/fleet/lib/deploy-static.sh set-context-log /work/repo/dist
 ```
 
-For the live defects, navigate Privacy → Home and inspect
-`document.activeElement`; it is `BODY`. At 390 px, switch the browser offline
-and inspect the header: the status words have `font-size: 0`, leaving only a
-color-changing dot. Search `index.html`, `src/main.ts`, and `README.md` for
-`Previous-set`, `last set`, `last session`, and `previous session` to reproduce
-the terminology finding.
+## Known gaps
 
-## Files changed
-
-- `.factory/review-2.md`
-- `.factory/handoff.md`
-
-## Next step
-
-Repair the three findings and run a new adversarial round from scratch. Do not
-mark F-1-34 fixed until the live page and code use one term consistently.
+None. The product deliberately has no paid tier, cloud sync, or AI feature:
+those are outside the researched offline, local-first lifting-log job.

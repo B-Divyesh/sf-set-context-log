@@ -1,0 +1,14 @@
+{
+  "url": "https://set-context-log.sociobot.in/",
+  "loadMs": 1255,
+  "errors": [],
+  "a11y": {
+    "title": "Set Context Log — log what changed each set",
+    "lang": "en",
+    "h1": 1,
+    "main": true,
+    "imgsMissingAlt": 0,
+    "buttonsUnlabeled": 0,
+    "textLength": 1686
+  }
+}
