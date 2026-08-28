@@ -16,7 +16,9 @@ flows.
 - Renamed the formerly unversioned hero to
   `panel-memory-c9dfb7b9.webp` (its SHA-256 prefix) before applying immutable
   caching. Vite's JS/CSS outputs already have content-versioned names.
-- Serves `/manifest.webmanifest` as `application/manifest+json`.
+- Maps `.webmanifest` to `application/manifest+json` through Azure Static Web
+  Apps' `mimeTypes` configuration (route-header overrides do not replace Azure's
+  inferred MIME type on the live service).
 - Added a restrictive same-origin CSP, an explicit permissions policy,
   `X-Frame-Options: DENY`, `nosniff`, referrer policy, and cross-domain-policy
   protection. The only external CSP connection allowances are the documented

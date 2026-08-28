@@ -8,6 +8,9 @@
     "X-Frame-Options": "DENY",
     "X-Permitted-Cross-Domain-Policies": "none"
   },
+  "mimeTypes": {
+    ".webmanifest": "application/manifest+json"
+  },
   "routes": [
     {
       "route": "/assets/*",
@@ -18,7 +21,6 @@
     {
       "route": "/manifest.webmanifest",
       "headers": {
-        "Content-Type": "application/manifest+json",
         "Cache-Control": "public, max-age=86400, must-revalidate"
       }
     },

@@ -21,7 +21,7 @@ required(headers['Permissions-Policy']?.includes('camera=()'), 'Permissions-Poli
 required(headers['X-Frame-Options'] === 'DENY', 'framing must be denied');
 required(headers['Cache-Control'] === 'public, max-age=0, must-revalidate', 'documents must revalidate instead of receiving immutable caching');
 required(routes.get('/assets/*')['Cache-Control'] === 'public, max-age=31536000, immutable', 'versioned assets must receive immutable caching');
-required(routes.get('/manifest.webmanifest')['Content-Type'] === 'application/manifest+json', 'manifest must have the web manifest MIME type');
+required(config.mimeTypes?.['.webmanifest'] === 'application/manifest+json', 'manifest must have the web manifest MIME type');
 required(routes.get('/sw.js')['Cache-Control'] === 'public, max-age=0, must-revalidate', 'service worker must revalidate on every check');
 
 const html = readFileSync(resolve(dist, 'index.html'), 'utf8');
